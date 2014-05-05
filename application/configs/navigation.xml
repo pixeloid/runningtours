@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configdata>
+    <nav>
+    	<tours>
+	   		<label>Tours</label>
+	   		<module>default</module>    	
+	   		<controller>index</controller>    	
+	   		<action>tours</action>
+    	</tours>
+    	<shop>
+	   		<label>About</label>
+	   		<module>default</module>    	
+	   		<controller>about</controller>    	
+	   		<action>index</action>
+    	</shop>
+
+    	<Feedbacks>
+	   		<label>News/Feedbacks</label>
+	   		<module>default</module>    	
+	   		<controller>feedbacks</controller>    	
+	   		<action>index</action>
+    	</Feedbacks>
+	
+    	<!-- <Family>
+	   		<label>Book Now!</label>
+	   		<module>default</module>    	
+	   		<controller>index</controller>    	
+	   		<action>book-now</action>
+    	</Family> -->
+    	<Photogallery>
+	   		<label>Gallery</label>
+	   		<module>default</module>    	
+	   		<controller>index</controller>    	
+	   		<action>gallery</action>
+    	</Photogallery>
+    	<Partners>
+	   		<label>Partners</label>
+	   		<module>default</module>    	
+	   		<controller>index</controller>    	
+	   		<action>partners</action>
+    	</Partners>
+
+    	<Contact>
+	   		<label>Contact</label>
+	   		<module>default</module>    	
+	   		<controller>index</controller>    	
+	   		<action>contact</action>
+    	</Contact>
+    	<Blog>
+	   		<label>Blog</label>
+	   		<uri>http://runningtoursbudapest.blogspot.com/</uri>
+			<target>_blank</target>
+    	</Blog>
+
+   	</nav>
+
+
+
+
+    <footer-nav>
+    	<press>
+	   		<label>Impresszum</label>
+	   		<uri>#</uri>
+    	</press>
+    	<legal>
+	   		<label>Jogi nyilatkozat</label>
+	   		<uri>#</uri>
+    	</legal>
+    	<parrtners>
+	   		<label>Együttműködő partnereink</label>
+	   		<uri>#</uri>
+    	</parrtners>
+
+   	</footer-nav>
+
+</configdata>
