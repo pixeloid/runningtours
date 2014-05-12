@@ -11,10 +11,10 @@ class IndexController extends Zend_Controller_Action
 	public function init()
 	{
 
-	$date = new DateTime; 	
+		$date = new DateTime; 	
 		$this->em = Zend_Registry::get('EntityManager');
 		$this->request = $this->getRequest();
-		
+
 		$ajaxContext = $this->_helper->getHelper('AjaxContext');
 	  	$ajaxContext->addActionContext('book-now', 'html')->initContext();
 		

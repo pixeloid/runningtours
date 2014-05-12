@@ -3,8 +3,6 @@
 	<h2>Terms and conditions, privacy policy</h2>
 	
 	<div class="well">
-
-
 		<h3>Privacy Policy</h3> 
 
 <p>		Running Tours Budapest will make every effort to keep your information (for example your name, address,telephone number, e-mail address collected for online forms) confidential and will not sell or release any of your information to third parties. Our safe and secure website offers you the ease of booking one of our tours online. Please contact us with any questions regarding our services and guarantees. 
