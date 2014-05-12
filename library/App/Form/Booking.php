@@ -17,7 +17,7 @@ class App_Form_Booking extends Twitter_Bootstrap_Form_Horizontal
 		
 		
 	    $this->addElement('select', 'persons', array(
-	        'label' => 'Number of persons:<br /><a href="#" class="pop" data-toggle="popover" data-trigger="hover" data-html="true" data-placement="bottom" data-content="We are pleased to offer discounts for group bookings.
+	        'label' => 'Number of persons:<br /><a href="#" class="pop" data-toggle="popover" data-trigger="hover" data-html="true" data-placement="right" data-content="We are pleased to offer discounts for group bookings.
 															<ul><li>25 euro/1 person</li>
 			                                                <li>20 euro/ persons for 2</li>
 			                                                <li>20 euro/ person for 3</li>
