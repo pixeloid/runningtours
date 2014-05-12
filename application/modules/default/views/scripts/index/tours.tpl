@@ -4,15 +4,15 @@
 
 	<div class="row">
 
-		<div class="span5">
+		<div class="span3">
 
 
 			<ul class="nav nav-pills nav-stacked  well">
 				{foreach $tours as $tour}
 				<li{if $selectedTour->id|default:null eq $tour->id} class="active"{/if}>
 					<a href="{$this->url([id => $tour->id])}" class=""><strong>{$tour->title}</strong><br>
-						<i>Every {$tour->dayString}, at {$tour->hour}</i> 
-						<small>(Approx. {$tour->distance} km)</small>
+						{*<i>Every {$tour->dayString}, at {$tour->hour}</i> 
+												<small>(Approx. {$tour->distance} km)</small>*}
 					</a>
 				</li>
 				{/foreach}
@@ -35,10 +35,17 @@
 				{/if}
 				<p><b class="text-pink">Customized tours from 30 euro.</b></p>
 			</div>
-		
-
-
 			<div class="well">
+				<ul class="thumbnails"  id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery">
+					{foreach $tour->photos as $photo}
+					<li class="span1"><a data-gallery="gallery" href="{$photo->file->filename}" class="thumbnail"><img src="{$photo->file->filename}"></a></li>
+					{/foreach}
+				</ul>
+			</div>
+
+
+
+<!-- 			<div class="well">
 				<h3>{$selectedTour->title} timetable</h3>
 				
 				<p>We offer a discount for a group of 2-5 people!</p>
@@ -50,17 +57,21 @@
 				</div>
 				{/foreach}
 			</div>
-			
+ -->			
 		</div>
 
-		<div class="span7">
+		<div class="span9">
 			<div class="well">
 				
-				<h2>{$selectedTour->title}</h2>
+									<h2>{$selectedTour->title}</h2>
 				{if $isAdmin}<a href="{$this->url([action=>'edit-tour', id => $selectedTour->id])}" class="">EDIT</a>{/if}
-				
+
 				<p>Approx. {$selectedTour->distance} km</p>
 				<p>Meeting point: {$selectedTour->stops.0}</p>
+				<hr>
+				<div class="row-fluid">
+									<div class="span8">
+				
 				
 				<!-- <button type="button" class="btn btn-danger pull-right" data-toggle="collapse" data-target="#more">Info</button> -->
 				
@@ -70,32 +81,140 @@
 				</div>
 				<p class="fb-like" data-send="false"  data-show-faces="false" data-font="lucida grande"></p>
 
-				<div class="map well"  id="route-map" style="height: 200px"></div>
+				</div>
+				<div class="map span4"  id="route-map" style="height: 300px"></div>
 				
 				<ul id="points">
 					{foreach $selectedTour->stops as $stop}
 					<li>{$stop}</li>
 					{/foreach}
 				</ul>
-			
-			</div>
-			
-			<div class="well">
-				<ul class="thumbnails"  id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery">
-					{foreach $tour->photos as $photo}
-					<li class="span1"><a data-gallery="gallery" href="{$photo->file->filename}" class="thumbnail"><img src="{$photo->file->filename}"></a></li>
-					{/foreach}
-				</ul>
-			</div>
-			
+				
 
+				</div>			
+			</div>
+			
 
 			
 		</div>
 		
 	</div>
-	
 	<div class="row">
+		<div class="span12">
+			<div class="well">
+				<h2>Timetable</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi, autem, nihil eos consectetur qui atque placeat nesciunt accusantium? Vero eius voluptas facilis molestias totam distinctio officia voluptatibus eos vitae consectetur!</p>
+				<table class="table table-bordered calendar" >
+					<tr>
+						<th></th>
+						<th>7:00</th>
+						<th>8:00</th>
+						<th>9:00</th>
+						<th>10:00</th>
+						<th>11:00</th>
+						<th>12:00</th>
+						<th>13:00</th>
+						<th>14:00</th>
+						<th>15:00</th>
+						<th>16:00</th>
+						<th>17:00</th>
+						<th>18:00</th>
+						<th>19:00</th>
+						<th>20:00</th>
+						<th>21:00</th>
+					</tr>
+
+					<tr>
+						<th>13. May</th>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td colspan="3"><a href="#" data-toggle="tooltip" title="1 person"><b>Riverbank Tour</b></a></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+
+					<tr>
+						<th>14. May</th>
+						<td colspan="2"><a href="#" data-toggle="tooltip" title="5 persons"><b>Heartbeat tour</b></a></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td colspan="3"><a href="#" data-toggle="tooltip" title="1 person"><b>City of Lights Tour</b></a></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<th>15. May</th>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td colspan="2"><a href="#" data-toggle="tooltip" title="3 persons"><b>Heartbeat tour</b></a></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+										<tr>
+						<th>16. May</th>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td colspan="2"><a href="#" data-toggle="tooltip" title="6 persons"><b>Heartbeat tour</b></a></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+										<tr>
+						<th>17. May</th>
+						<td></td>
+						<td colspan="2"><a href="#" data-toggle="tooltip" title="4 persons"><b>Heartbeat tour</b></a></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+									</table>
+
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam, laudantium, eaque est modi quas sapiente ipsum quo. Totam, illum, sapiente sint voluptates fuga sequi nemo vitae laudantium dolore expedita distinctio!</p>
+			</div>
+
+		</div>
+	</div>
+<!-- 	<div class="row">
 		<div class="span12">
 			<div class="well" id="customized">
 				<h3>Do not wish to accommodate yourself?</h3>
@@ -107,7 +226,7 @@
 			</div>
 
 		</div>
-	</div>
+	</div> -->
 
 </div>
 

@@ -1,0 +1,13 @@
+{
+  "name": "MyProject",
+  "version": "0.0.1",
+  "dependencies": {
+    "jquery": ">= 2.0.3",
+    "bootstrap": "~3.0.0",
+    "bootstrap-calendar": "0.2.0-RC"
+  },
+  "resolutions": {
+    "jquery": ">= 2.0.3",
+    "bootstrap": "~3.0.0"
+  }
+}

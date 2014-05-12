@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.8, created on 2014-05-05 08:41:18
+<?php /* Smarty version Smarty-3.1.8, created on 2014-05-12 20:59:44
          compiled from "/Users/pixeloid/Sites/runningtours/application/modules/default/views/scripts/index/customized-tour.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:714180670534edb8646ba16-72190631%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'e8a49501af27a72dc03ae01cda100a7e71dd08dc' => 
     array (
       0 => '/Users/pixeloid/Sites/runningtours/application/modules/default/views/scripts/index/customized-tour.tpl',
-      1 => 1399272050,
+      1 => 1399920911,
       2 => 'file',
     ),
   ),

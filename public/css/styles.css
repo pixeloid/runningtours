@@ -6521,6 +6521,33 @@ h5 {
   background: transparent url(../i/sprite_slider.png) no-repeat right -63px;
   float: right;
 }
+.calendar {
+  font-size: 11.200000000000001px;
+}
+.calendar th {
+  line-height: 1em;
+  font-weight: normal;
+  padding: 8px;
+  color: #000000;
+}
+.calendar td {
+  line-height: 1em;
+  width: 6%;
+  padding: 0;
+}
+.calendar td a {
+  display: block;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  margin: 2px;
+  padding: 8px;
+  background: #18a554;
+  color: #ffffff;
+}
+.calendar td a:hover {
+  text-decoration: none;
+}
 @media (min-width: 979px) {
   .toursSlider {
     position: relative;

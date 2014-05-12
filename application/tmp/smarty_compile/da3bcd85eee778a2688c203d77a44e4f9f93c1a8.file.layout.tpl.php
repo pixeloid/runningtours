@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.8, created on 2013-09-23 23:32:42
+<?php /* Smarty version Smarty-3.1.8, created on 2014-05-12 22:09:04
          compiled from "/Users/pixeloid/Sites/runningtours/application/modules/default/views/scripts/layout.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:15864058895120ee2e62b077-68213577%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'da3bcd85eee778a2688c203d77a44e4f9f93c1a8' => 
     array (
       0 => '/Users/pixeloid/Sites/runningtours/application/modules/default/views/scripts/layout.tpl',
-      1 => 1379971927,
+      1 => 1399925343,
       2 => 'file',
     ),
   ),
@@ -92,7 +92,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 	<script type="text/javascript" src="plupload/js/plupload.html4.js"></script>
 	<script type="text/javascript" src="plupload/js/plupload.html5.js"></script>
 	<script src="tinymce/tiny_mce.js" type="text/javascript" charset="utf-8"></script>
-	
+	<script src="bootstrap-calendar-master/components/underscore/underscore-min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="bootstrap-calendar-master/js/calendar.js" type="text/javascript" charset="utf-8"></script>
+
 	
 
 	<script src="js/site.js"></script>
@@ -158,7 +160,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 
 	
 	
-	<div class="social">
+<!-- 	<div class="social">
 		<div class="container">
 			<div class="row">
 				<div class="span4">
@@ -172,7 +174,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 			</div>
 		</div>
 	</div>
-	
+ -->	
 	
 	<footer class="navbar-fixed-bottom">
 			<div class="navbar navbar-inverse">

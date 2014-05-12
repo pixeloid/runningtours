@@ -61,7 +61,9 @@
 	<script type="text/javascript" src="plupload/js/plupload.html4.js"></script>
 	<script type="text/javascript" src="plupload/js/plupload.html5.js"></script>
 	<script src="tinymce/tiny_mce.js" type="text/javascript" charset="utf-8"></script>
-	
+	<script src="bootstrap-calendar-master/components/underscore/underscore-min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="bootstrap-calendar-master/js/calendar.js" type="text/javascript" charset="utf-8"></script>
+
 	
 
 	<script src="js/site.js"></script>
@@ -123,7 +125,7 @@
 	{$this->layout()->content}
 	
 	
-	<div class="social">
+<!-- 	<div class="social">
 		<div class="container">
 			<div class="row">
 				<div class="span4">
@@ -137,7 +139,7 @@
 			</div>
 		</div>
 	</div>
-	
+ -->	
 	
 	<footer class="navbar-fixed-bottom">
 			<div class="navbar navbar-inverse">
