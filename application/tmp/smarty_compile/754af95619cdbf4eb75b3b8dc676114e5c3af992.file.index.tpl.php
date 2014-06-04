@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.8, created on 2014-04-16 19:40:22
+<?php /* Smarty version Smarty-3.1.8, created on 2014-06-03 21:40:31
          compiled from "/Users/pixeloid/Sites/runningtours/application/modules/default/views/scripts/index/index.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:4914768705120f07c80f529-39968482%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '754af95619cdbf4eb75b3b8dc676114e5c3af992' => 
     array (
       0 => '/Users/pixeloid/Sites/runningtours/application/modules/default/views/scripts/index/index.tpl',
-      1 => 1396959704,
+      1 => 1401823755,
       2 => 'file',
     ),
   ),
@@ -21,6 +21,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   array (
     'lastminute' => 0,
     'this' => 0,
+    'feedback' => 0,
     'tour' => 0,
     'stop' => 0,
   ),
@@ -75,54 +76,68 @@ $_valid = $_smarty_tpl->decodeProperties(array (
  
  
 
-<?php if (isset($_smarty_tpl->tpl_vars['lastminute']->value->title)){?>
+<?php if ($_smarty_tpl->tpl_vars['lastminute']->value){?>
 
 <div class="lastMinute">
 	<div class="container">
-		<h3>Last minute reservation!</h3>
-		<p>Book now for <?php echo $_smarty_tpl->tpl_vars['lastminute']->value->personsNeeded;?>
- tourists on the <?php echo $_smarty_tpl->tpl_vars['lastminute']->value->title;?>
-, only for <?php echo $_smarty_tpl->tpl_vars['lastminute']->value->price;?>
- EUR per person, on <?php echo $_smarty_tpl->tpl_vars['lastminute']->value->reservations->first()->date;?>
-!
-			<a href="<?php echo $_smarty_tpl->tpl_vars['this']->value->url(array('action'=>'book-now','id'=>$_smarty_tpl->tpl_vars['lastminute']->value->id));?>
-" class="btn">Book Now!</a>
-		</p>
+		<div class="row">
+			<div class="span4">
+				<h3>Last minute!</h3>
 
+				<p><b><?php echo $_smarty_tpl->tpl_vars['lastminute']->value->personsNeeded;?>
+ place<?php if ($_smarty_tpl->tpl_vars['lastminute']->value->personsNeeded>1){?>s<?php }?></b> left for the <?php echo $_smarty_tpl->tpl_vars['lastminute']->value->tour->title;?>
+ on <b><?php echo $_smarty_tpl->tpl_vars['lastminute']->value->datefrom->format('d-M-Y');?>
+</b> at <?php echo $_smarty_tpl->tpl_vars['lastminute']->value->datefrom->format('H:i');?>
+ only for <?php echo $_smarty_tpl->tpl_vars['lastminute']->value->price;?>
+ EUR/person!</p>
+
+				<a href="<?php echo $_smarty_tpl->tpl_vars['this']->value->url(array('action'=>'tours','id'=>$_smarty_tpl->tpl_vars['lastminute']->value->tour->id));?>
+" class="btn">Book Now!</a>
+			</div>
+			<div class="span4">
+				<h3>Our parners!</h3>
+				<div class="ta">							
+					<div id="TA_linkingWidgetRedesign960" class="TA_linkingWidgetRedesign">
+						<ul id="4218O6N" class="TA_links xB29w6xvxe">
+							<li id="9DLHnTbMf" class="lo1PJeMLy1i">Read reviews of <a target="_blank" href="http://www.tripadvisor.co.uk/Attraction_Review-g274887-d4048276-Reviews-Running_Tours_Budapest-Budapest_Central_Hungary.html">Running Tours Budapest</a></li>
+						</ul>
+					</div>
+					<script src="http://www.jscache.com/wejs?wtype=linkingWidgetRedesign&amp;uniq=960&amp;locationId=4048276&amp;lang=en_UK&amp;border=true"></script>
+				</div>				
+				<div class="gort">
+					<a href="http://www.gorunningtours.com" target="_blank"><img src="i/gort_logo_premiumpartner_180x62.png" ></a>
+				
+				</div>
+
+			</div>
+			<div class="span4">
+				<h3>Thank you!</h3>
+				<blockquote>
+					<p><?php echo $_smarty_tpl->tpl_vars['feedback']->value->description;?>
+</p>
+					<i><?php echo $_smarty_tpl->tpl_vars['feedback']->value->author;?>
+</i>
+				</blockquote>
+			</div>
+		</div>
 	</div>
 </div>
 
 <?php }?>
 
-<div class="container">
-	<div class="toplogos " style="padding-top: 20px;">
-		<div class="ta">							
-			<div id="TA_linkingWidgetRedesign960" class="TA_linkingWidgetRedesign">
-				<ul id="4218O6N" class="TA_links xB29w6xvxe">
-					<li id="9DLHnTbMf" class="lo1PJeMLy1i">Read reviews of <a target="_blank" href="http://www.tripadvisor.co.uk/Attraction_Review-g274887-d4048276-Reviews-Running_Tours_Budapest-Budapest_Central_Hungary.html">Running Tours Budapest</a></li>
-				</ul>
-			</div>
-			<script src="http://www.jscache.com/wejs?wtype=linkingWidgetRedesign&amp;uniq=960&amp;locationId=4048276&amp;lang=en_UK&amp;border=true"></script>
-		</div>				
-		<div class="gort">
-			<a href="http://www.gorunningtours.com" target="_blank"><img src="i/gort_logo_premiumpartner_180x62.png" style="margin-top: -35px;margin-left: 10px; position: relative; z-index: 100" alt="Gort Logo Premiumpartner 180x62">						</div></a>
-	
-	</div>
-	
-</div>
 
 <div class="toursSlider">
 
 	<!-- <h2 class="container">Check out our tours!</h2> -->
 	<div class="item">
-		<h3><span><strong><?php echo $_smarty_tpl->tpl_vars['tour']->value->title;?>
+		<h3><span class=""><strong><?php echo $_smarty_tpl->tpl_vars['tour']->value->title;?>
 </strong></span></h3>
 		<div class="container">
 			<p><?php echo $_smarty_tpl->tpl_vars['tour']->value->brief;?>
 </p>
 			
-			<div class="map" id="map-<?php echo $_smarty_tpl->tpl_vars['tour']->value->id;?>
-" style="height:200px; width:450px"></div>
+			<div class="mapholder"><div class="map" id="map-<?php echo $_smarty_tpl->tpl_vars['tour']->value->id;?>
+" style=""></div></div>
 			<ul class="points">
 				<?php  $_smarty_tpl->tpl_vars['stop'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['stop']->_loop = false;
  $_from = $_smarty_tpl->tpl_vars['tour']->value->stops; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}

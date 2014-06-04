@@ -14,7 +14,7 @@
 </p>
 		<ul><li>I wish to participate in Running Tours Budapest</li>
 		<li>I understand that running can be physically strenuous and can lead to injuries</li>
-		<li>My physical fitness is at the level that I can run for up to one hour without a significant risk of injury and that I am aware of my bodies needs to the extent that I can stop running before injury or illness</li>
+		<li>My physical fitness is at the level that I can run for up to 2 hours without a significant risk of injury and that I am aware of my bodies needs to the extent that I can stop running before injury or illness</li>
 		<li>I understand that all streets are open to vehicular traffic and as a pedestrian I am to abide by all traffic laws and regulations</li>
 		<li>I understand there may not be access to water on some routes and in some areas</li>
 		<li>I acknowledge that I am at least 18 years old by the time of the reserved running tour</li>

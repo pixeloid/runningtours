@@ -1,4 +1,4 @@
-@import "../fonts/stylesheet.css";
+@import "../fonts/font.css";
 /*!
  * Bootstrap v2.3.0
  *
@@ -86,16 +86,12 @@ sub {
 }
 img {
   /* Responsive images (ensure images don't scale beyond their parents) */
-
   max-width: 100%;
   /* Part 1: Set a maxium relative to the parent */
-
   width: auto\9;
   /* IE7-8 need help adjusting responsive images */
-
   height: auto;
   /* Part 2: Scale the height according to the width, otherwise you get stretching */
-
   vertical-align: middle;
   border: 0;
   -ms-interpolation-mode: bicubic;
@@ -190,7 +186,7 @@ textarea {
   img {
     max-width: 100% !important;
   }
-  @page  {
+  @page {
     margin: 0.5cm;
   }
   p,
@@ -206,7 +202,7 @@ textarea {
 }
 body {
   margin: 0;
-  font-family: HelveticaLight, Helvetica, Arial, sans-serif;
+  font-family: 'HelveticaNeueLT Pro', Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 20px;
   color: #52503e;
@@ -618,7 +614,7 @@ h4,
 h5,
 h6 {
   margin: 10px 0;
-  font-family: arista_2;
+  font-family: 'Arista 2.0';
   font-weight: normal;
   line-height: 20px;
   color: #000000;
@@ -703,7 +699,6 @@ ol.inline > li {
   display: inline-block;
   *display: inline;
   /* IE7 inline-block hack */
-
   *zoom: 1;
   padding-left: 5px;
   padding-right: 5px;
@@ -893,7 +888,7 @@ input,
 button,
 select,
 textarea {
-  font-family: HelveticaLight, Helvetica, Arial, sans-serif;
+  font-family: 'HelveticaNeueLT Pro', Helvetica, Arial, sans-serif;
 }
 label {
   display: block;
@@ -982,7 +977,6 @@ input[type="color"]:focus,
   outline: 0;
   outline: thin dotted \9;
   /* IE6-9 */
-
   -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
   -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
@@ -992,10 +986,8 @@ input[type="checkbox"] {
   margin: 4px 0 0;
   *margin-top: 0;
   /* IE7 */
-
   margin-top: 1px \9;
   /* IE8-9 */
-
   line-height: normal;
 }
 input[type="file"],
@@ -1011,10 +1003,8 @@ select,
 input[type="file"] {
   height: 30px;
   /* In IE7, the height of the select element cannot be changed by height, only font-size */
-
   *margin-top: 4px;
   /* For IE7, add top margin to align select with labels */
-
   line-height: 30px;
 }
 select {
@@ -1412,7 +1402,6 @@ select:focus:invalid:focus {
   display: inline-block;
   *display: inline;
   /* IE7 inline-block hack */
-
   *zoom: 1;
   vertical-align: middle;
   padding-left: 5px;
@@ -1563,7 +1552,6 @@ input.search-query {
   padding-left: 14px;
   padding-left: 4px \9;
   /* IE7-8 doesn't have border-radius, so don't indent the padding */
-
   margin-bottom: 0;
   -webkit-border-radius: 15px;
   -moz-border-radius: 15px;
@@ -1620,7 +1608,6 @@ input.search-query {
   display: inline-block;
   *display: inline;
   /* IE7 inline-block hack */
-
   *zoom: 1;
   margin-bottom: 0;
   vertical-align: middle;
@@ -2678,7 +2665,6 @@ button.close {
   display: inline-block;
   *display: inline;
   /* IE7 inline-block hack */
-
   *zoom: 1;
   padding: 4px 12px;
   margin-bottom: 0;
@@ -2701,7 +2687,6 @@ button.close {
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
   *background-color: #e6e6e6;
   /* Darken IE7 buttons by default so they stand out more given they won't have borders */
-
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
   border: 1px solid #cccccc;
   *border: 0;
@@ -2837,7 +2822,6 @@ input[type="button"].btn-block {
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
   *background-color: #dc033c;
   /* Darken IE7 buttons by default so they stand out more given they won't have borders */
-
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
 }
 .btn-primary:hover,
@@ -2869,7 +2853,6 @@ input[type="button"].btn-block {
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
   *background-color: #f89406;
   /* Darken IE7 buttons by default so they stand out more given they won't have borders */
-
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
 }
 .btn-warning:hover,
@@ -2901,7 +2884,6 @@ input[type="button"].btn-block {
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
   *background-color: #bd362f;
   /* Darken IE7 buttons by default so they stand out more given they won't have borders */
-
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
 }
 .btn-danger:hover,
@@ -2933,7 +2915,6 @@ input[type="button"].btn-block {
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
   *background-color: #51a351;
   /* Darken IE7 buttons by default so they stand out more given they won't have borders */
-
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
 }
 .btn-success:hover,
@@ -2965,7 +2946,6 @@ input[type="button"].btn-block {
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
   *background-color: #2f96b4;
   /* Darken IE7 buttons by default so they stand out more given they won't have borders */
-
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
 }
 .btn-info:hover,
@@ -2997,7 +2977,6 @@ input[type="button"].btn-block {
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
   *background-color: #52503e;
   /* Darken IE7 buttons by default so they stand out more given they won't have borders */
-
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
 }
 .btn-inverse:hover,
@@ -3072,7 +3051,6 @@ input[type="submit"].btn.btn-mini {
   display: inline-block;
   *display: inline;
   /* IE7 inline-block hack */
-
   *zoom: 1;
   font-size: 0;
   vertical-align: middle;
@@ -3248,7 +3226,6 @@ input[type="submit"].btn.btn-mini {
   display: inline-block;
   *display: inline;
   /* IE7 inline-block hack */
-
   *zoom: 1;
 }
 .btn-group-vertical > .btn {
@@ -3823,7 +3800,7 @@ input[type="submit"].btn.btn-mini {
 .navbar-search .search-query {
   margin-bottom: 0;
   padding: 4px 14px;
-  font-family: HelveticaLight, Helvetica, Arial, sans-serif;
+  font-family: 'HelveticaNeueLT Pro', Helvetica, Arial, sans-serif;
   font-size: 13px;
   font-weight: normal;
   line-height: 1;
@@ -3945,7 +3922,6 @@ input[type="submit"].btn.btn-mini {
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
   *background-color: #049cdb;
   /* Darken IE7 buttons by default so they stand out more given they won't have borders */
-
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
   -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 1px 0 rgba(255,255,255,.075);
   -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 1px 0 rgba(255,255,255,.075);
@@ -4166,7 +4142,6 @@ input[type="submit"].btn.btn-mini {
   display: inline-block;
   *display: inline;
   /* IE7 inline-block hack */
-
   *zoom: 1;
   text-shadow: 0 1px 0 #ffffff;
 }
@@ -4184,7 +4159,6 @@ input[type="submit"].btn.btn-mini {
   display: inline-block;
   *display: inline;
   /* IE7 inline-block hack */
-
   *zoom: 1;
   margin-left: 0;
   margin-bottom: 0;
@@ -4385,7 +4359,6 @@ input[type="submit"].btn.btn-mini {
   border: 1px solid rgba(0, 0, 0, 0.3);
   *border: 1px solid #999;
   /* IE6-7 */
-
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px;
@@ -6289,7 +6262,6 @@ body {
   padding-top: 120px;
   margin: 0 0 180px;
   /* bottom = footer height */
-
 }
 footer.navbar-fixed-bottom {
   background: url(../i/footer.png) repeat-x left top;
@@ -6358,7 +6330,7 @@ h5 {
 }
 .navbar-fixed-top h2 {
   position: absolute;
-  font: normal 14px/48px HelveticaLight, Helvetica, Arial, sans-serif;
+  font: normal 14px/48px 'HelveticaNeueLT Pro', Helvetica, Arial, sans-serif;
   right: -20px;
   top: 50px;
   text-transform: none;
@@ -6402,7 +6374,7 @@ h5 {
 .navbar-fixed-top .navbar .navbar-inner div.nav-collapse ul.nav li a {
   text-transform: uppercase;
   color: #fff200;
-  font: normal 20px arista_2;
+  font: normal 20px 'Arista 2.0';
   text-shadow: none;
   padding: 20px 14px;
 }
@@ -6414,6 +6386,7 @@ h5 {
   height: 280px;
   margin-top: 50px;
   position: relative;
+  display: none;
 }
 .mainSlider .container {
   position: relative;
@@ -6454,25 +6427,65 @@ h5 {
 }
 .mainSlider dl dt,
 .mainSlider dl dd {
-  width: 390px;
+  width: 590px;
   margin: 0;
 }
 .mainSlider dl dt {
-  font: normal 28px arista_2;
+  font: normal 28px 'Arista 2.0';
   color: #000000;
   text-transform: uppercase;
   margin-top: 40px;
 }
 .mainSlider dl dd {
-  font: normal 22px/1.2 HelveticaLight, Helvetica, Arial, sans-serif;
+  font: normal 22px/1.2 'HelveticaNeueLT Pro', Helvetica, Arial, sans-serif;
   margin-top: 20px;
+}
+.lastMinute {
+  background: #ffffff;
+  -webkit-box-shadow: inset 0 0px 10px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: inset 0 0px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 0px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 60px;
+  padding-bottom: 10px;
+}
+.lastMinute h3 {
+  font-size: 28px;
+  margin-top: 0;
+  margin-bottom: 20px;
+  padding-left: 20px;
+  color: #ffffff;
+  background: #ffffff url(../i/sprite_slider.png) no-repeat right top;
+}
+.lastMinute .ta,
+.lastMinute .gort {
+  float: left;
+  margin-right: 20px;
+}
+.lastMinute .gort img {
+  height: 90px;
+  margin-top: -10px;
+}
+.lastMinute .container {
+  position: relative;
+}
+.lastMinute p {
+  font-size: 18px;
+}
+.lastMinute a.btn {
+  background: #dc0384;
+  color: #ffffff;
+  font-weight: bold;
+  white-space: nowrap;
 }
 .toursSlider {
   background: #ffffff;
   -webkit-box-shadow: 0 20px 20px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0 20px 20px rgba(0, 0, 0, 0.2);
   box-shadow: 0 20px 20px rgba(0, 0, 0, 0.2);
-  margin-top: 100px;
+  position: relative;
+  min-height: 170px;
+  z-index: 10;
+  margin-top: 50px;
 }
 .toursSlider h2.container {
   margin-top: 0;
@@ -6484,6 +6497,10 @@ h5 {
   font-size: 48px;
   height: auto;
 }
+.toursSlider .item {
+  position: relative;
+  z-index: 2;
+}
 .toursSlider .item h3 {
   background: #18a554;
   width: 50%;
@@ -6492,14 +6509,40 @@ h5 {
   height: 40px;
 }
 .toursSlider .item h3 span {
-  width: 470px;
   float: right;
   display: block;
   background: #ffffff;
 }
+.toursSlider .item .container {
+  height: 130px;
+  position: relative;
+  z-index: 3;
+}
+.toursSlider .item .container p {
+  font: normal 18px/1.4 'HelveticaNeueLT Pro', Helvetica, Arial, sans-serif;
+  margin-top: 23px;
+  width: 590px;
+  text-align: right;
+}
+.toursSlider .item .mapholder {
+  position: absolute;
+  top: -55px;
+  -webkit-box-shadow: 0 0px 30px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 0px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0px 30px rgba(0, 0, 0, 0.2);
+  right: 130px;
+  z-index: 10;
+  width: 35%;
+}
+.toursSlider .item .mapholder .map {
+  height: 200px;
+  width: 100%;
+  background: white;
+}
 .toursSlider .item h3 span strong {
   float: left;
   display: block;
+  white-space: nowrap;
   color: #ffffff;
   background: #ffffff url(../i/sprite_slider.png) no-repeat right top;
   font-weight: normal;
@@ -6507,10 +6550,10 @@ h5 {
   padding-right: 50px;
 }
 .toursSlider .container a.show {
-  font: normal 22px arista_2;
+  font: normal 22px 'Arista 2.0';
   color: #ffffff;
   position: absolute;
-  right: -60px;
+  right: 0px;
   top: 30px;
   z-index: 1;
   text-transform: uppercase;
@@ -6521,6 +6564,10 @@ h5 {
   background: transparent url(../i/sprite_slider.png) no-repeat right -63px;
   float: right;
 }
+.toursSlider .container a.show:hover {
+  text-decoration: none;
+  right: -10px;
+}
 .calendar {
   font-size: 11.200000000000001px;
 }
@@ -6529,6 +6576,7 @@ h5 {
   font-weight: normal;
   padding: 8px;
   color: #000000;
+  white-space: nowrap;
 }
 .calendar td {
   line-height: 1em;
@@ -6542,139 +6590,143 @@ h5 {
   border-radius: 3px;
   margin: 2px;
   padding: 8px;
-  background: #18a554;
   color: #ffffff;
+  background: #18a554;
 }
 .calendar td a:hover {
   text-decoration: none;
 }
-@media (min-width: 979px) {
-  .toursSlider {
-    position: relative;
-    height: 170px;
-    z-index: 10;
-  }
-  .toursSlider .item {
-    position: relative;
-    top: -40px;
-    z-index: 2;
-  }
-  .toursSlider .item .container {
-    height: 130px;
-    position: relative;
-    z-index: 3;
-  }
-  .toursSlider .item p {
-    font: normal 14px/1.2 HelveticaLight, Helvetica, Arial, sans-serif;
-    margin-top: 30px;
+.calendar td a.empty {
+  background: transparent;
+}
+.calendar td a.empty:hover {
+  background: #049cdb;
+}
+.calendar td a.closed {
+  background: #555555;
+  cursor: default;
+}
+.calendar td.disabled {
+  background: #999999;
+}
+@media only screen and (max-width: 1200px) {
+  .mainSlider dl dt,
+  .mainSlider dl dd {
     width: 390px;
   }
-  .toursSlider .item .map {
-    position: absolute;
-    top: -55px;
-    -webkit-box-shadow: 0 0px 30px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: 0 0px 30px rgba(0, 0, 0, 0.2);
-    box-shadow: 0 0px 30px rgba(0, 0, 0, 0.2);
-    right: 80px;
-    z-index: 10;
+  .toursSlider .item .container p {
+    font: normal 16px/1.4 'HelveticaNeueLT Pro', Helvetica, Arial, sans-serif;
+    width: 450px;
   }
-  .toursSlider .container.next {
-    height: 100px;
-    margin-top: -40px;
-    position: relative;
-    z-index: 0;
+}
+@media only screen and (max-width: 979px) {
+  body {
+    padding-top: 0px;
   }
-  .toursSlider .container.next a {
-    display: block;
-    background: transparent url(../i/sprite_slider.png) no-repeat -283px -170px;
-    width: 300px;
-    height: 100px;
-    position: absolute;
-    top: 0;
-    left: 160px;
-    z-index: 1;
+  .toursSlider .item .mapholder .map {
+    height: 200px;
+    width: 100%;
+    background: white;
   }
-  .toursSlider .container.next a {
-    display: block;
-    background: transparent url(../i/sprite_slider.png) no-repeat -283px -170px;
-    width: 300px;
-    height: 100px;
-    position: absolute;
-    top: 0;
-    left: 160px;
-    z-index: 1;
-  }
-  .toursSlider .container.next a span {
-    font: normal 22px arista_2;
-    color: #dc0384;
-    text-transform: uppercase;
-    display: block;
-    line-height: 50px;
-    padding-left: 80px;
-    margin-right: 40px;
-  }
-  .toursSlider .container.next a:hover {
-    text-decoration: none;
+  .toursSlider .item .container p {
+    font: normal 16px/1.4 'HelveticaNeueLT Pro', Helvetica, Arial, sans-serif;
+    width: 320px;
   }
   .toursSlider .container a.show {
-    font: normal 22px arista_2;
+    font: normal 22px 'Arista 2.0';
     color: #ffffff;
-    position: absolute;
-    right: -60px;
-    top: 30px;
+    background: #18a554;
+    position: static;
+    right: auto;
+    top: auto;
     z-index: 1;
     text-transform: uppercase;
     display: block;
-    line-height: 70px;
-    padding-left: 80px;
-    padding-right: 30px;
-    background: transparent url(../i/sprite_slider.png) no-repeat right -63px;
-    float: right;
+    line-height: 1.4em;
+    padding: 5px 20px;
+    float: left;
+    margin-left: 200px;
   }
   .toursSlider .container a.show:hover {
-    right: -70px;
     text-decoration: none;
+    right: -10px;
   }
+  /*	.toursSlider .container.next{
+		height: 100px;
+		margin-top: -40px;
+		position: relative;
+		z-index: 0;
+	}
+	.toursSlider .container.next a{
+		display: block;
+		background: transparent url(../i/sprite_slider.png) no-repeat -283px -170px;
+		width: 300px;
+		height: 100px;
+		position: absolute;
+		top: 0;
+		left: 160px;
+		z-index: 1;
+	}
+
+	.toursSlider .container.next a{
+		display: block;
+		background: transparent url(../i/sprite_slider.png) no-repeat -283px -170px;
+		width: 300px;
+		height: 100px;
+		position: absolute;
+		top: 0;
+		left: 160px;
+		z-index: 1;
+	}
+
+	.toursSlider .container.next a span{
+		font: normal 22px @headingsFontFamily;
+		color: @pink;
+		text-transform: uppercase;
+		display: block;
+		line-height: 50px;
+		padding-left: 80px;
+		margin-right: 40px;
+	}
+
+	.toursSlider .container.next a:hover {
+		text-decoration: none;
+	}
+
+	.toursSlider .container a.show{
+		font: normal 22px @headingsFontFamily;
+		color: @white;
+		position: absolute;
+		right: -60px;
+		top: 30px;
+		z-index: 1;
+		text-transform: uppercase;
+		display: block;
+		line-height: 70px;
+		padding-left: 80px;
+		padding-right: 30px;
+		background: transparent url(../i/sprite_slider.png) no-repeat right -63px;
+		float: right;
+	}
+
+	.toursSlider .container a.show:hover{
+		right: -70px;
+		text-decoration: none;
+	}
+
+	.leader{
+		margin-top: 30px;
+	}
+
+	label.control-checkbox{
+		display: inline;
+	}
+
+	input#accept{
+		margin-left: 180px;
+	}*/
 }
-.lastMinute {
-  background: #18a554;
-  -webkit-box-shadow: inset 0 0px 10px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: inset 0 0px 10px rgba(0, 0, 0, 0.1);
-  box-shadow: inset 0 0px 10px rgba(0, 0, 0, 0.1);
-  margin-top: 60px;
-  padding-bottom: 10px;
-}
-.lastMinute .container {
-  position: relative;
-}
-.lastMinute p {
-  color: #ffffff;
-  font-size: 18px;
-}
-.lastMinute p a.btn {
-  float: right;
-  font-size: 20px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  padding-right: 20px;
-  padding: 20px;
-  position: absolute;
-  top: 20px;
-  right: 0;
-  background: #dc0384;
-  color: #ffffff;
-  font-weight: bold;
-}
-.leader {
-  margin-top: 30px;
-}
-label.control-checkbox {
-  display: inline;
-}
-input#accept {
-  margin-left: 180px;
-}
-@media (min-width: 768px) and (max-width: 979px) {
+@media only screen and (max-width: 767px) {
   body {
     padding-top: 0px;
     margin-bottom: 0;
@@ -6719,9 +6771,10 @@ input#accept {
   .toursSlider .item {
     padding: 20px;
   }
-  .toursSlider .item .map {
+  .toursSlider .item .mapholder {
     width: 100% !important;
     height: 200px !important;
+    position: static;
   }
   .toursSlider .item h3 {
     background: #18a554;
@@ -6731,7 +6784,7 @@ input#accept {
     height: 40px;
   }
   .toursSlider .item h3 {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
   .toursSlider .item h3 span {
     width: auto;
@@ -6749,10 +6802,18 @@ input#accept {
     font-style: normal;
     padding-right: 0;
   }
+  .toursSlider .item .container {
+    height: auto;
+  }
+  .toursSlider .item .container p {
+    text-align: center;
+    width: auto;
+  }
   .toursSlider .container a.show {
-    font: normal 22px arista_2;
+    font: normal 22px 'Arista 2.0';
     color: #ffffff;
     position: static;
+    display: block;
     right: auto;
     top: auto;
     text-transform: uppercase;
@@ -6762,16 +6823,10 @@ input#accept {
     background: #dc0384;
     float: none;
     text-align: center;
-    margin-top: 20px;
+    margin: 20px 0 0 0 ;
   }
   footer {
     padding: 0 !important;
     margin: 0 !important;
-  }
-}
-@media (min-width: 1200px) {
-  .mainSlider dl dt,
-  .mainSlider dl dd {
-    width: 630px;
   }
 }

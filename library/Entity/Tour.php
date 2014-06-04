@@ -35,21 +35,27 @@ class Tour extends Base
 	 */
 	protected $stops = '';
 	
-	/**
- 	* @ORM\Column(type="string", length=20, name="day", unique=false, nullable=false)
- 	*/
-	protected $day = null;
 
 	/**
  	* @ORM\Column(type="integer", name="distance", unique=false, nullable=false)
  	*/
 	protected $distance = null;
 
+	/**
+ 	* @ORM\Column(type="boolean", name="onlyinaday", unique=false, nullable=true)
+ 	*/
+	protected $onlyinaday = null;
+
 
 	/**
-	 * @ORM\Column(type="time", name="hour", nullable=false)
+	 * @ORM\Column(type="integer", name="hours", nullable=false)
 	 */
-	protected $hour = null;
+	protected $hours = null;
+
+	/**
+	 * @ORM\Column(type="array", name="prices", nullable=false)
+	 */
+	protected $prices = null;
 	
 	
 	/**

@@ -4,6 +4,9 @@ class App_Form_Booking extends Twitter_Bootstrap_Form_Horizontal
 {
     protected $_edit = false;
     
+
+
+
     public function init()
     {	
 	
@@ -14,15 +17,12 @@ class App_Form_Booking extends Twitter_Bootstrap_Form_Horizontal
 		$this->setDescription('Payments need to be performed at the meeting point in cash before each tour. If you need a payment invoice, please tell us by e-mail in advance. Please give us your billing details so we can send the invoice to you after the tour.');
 		$this->addDecorator('Description');
 		
+		$this->addElement('select', 'tour', array(
+			'label' => 'Tour'	
+		));
 		
-		
+
 	    $this->addElement('select', 'persons', array(
-	        'label' => 'Number of persons:<br /><a href="#" class="pop" data-toggle="popover" data-trigger="hover" data-html="true" data-placement="right" data-content="We are pleased to offer discounts for group bookings.
-															<ul><li>25 euro/1 person</li>
-			                                                <li>20 euro/ persons for 2</li>
-			                                                <li>20 euro/ person for 3</li>
-			                                                <li>15 euro/ person for 4</li>
-			                                                <li>15 euro/person for 5</li></ul> <p>We do not undertake the risk of the absence of other customers. Prices on the website serve only informational purposes. Final price will be counted on the actual number of participants.</p>">How we calculate?</a>',
 	        'multiOptions' => array(1 => 1,2 => 2,3 => 3,4 => 4,5 => 5),
 	        'required' => true,
 	    ));
@@ -76,7 +76,7 @@ class App_Form_Booking extends Twitter_Bootstrap_Form_Horizontal
 	    
             
         $this->addElement('checkbox', 'accept', array(
-                'label' => 'Accept the <a href="'.$this->getView()->url(array('action' => 'terms'), null, true ).'" target="_blank">terms, and conditions</a>',
+                'label' => 'Accept the <a href="'.$this->getView()->url(array('action' => 'terms'), null, true ).'" target="_blank">terms and conditions</a>',
 				'uncheckedValue'=> '',
 				'checkedValue' => 1,
 				'validators' => array(

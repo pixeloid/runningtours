@@ -47,34 +47,48 @@ class Reservation extends Base
      */
 	protected $tour;
     
-/**
- * @ORM\Column(type="integer", name="persons", unique=false, nullable=false)
- */
-protected $persons = null;
+	/**
+	 * @ORM\Column(type="integer", name="persons", unique=false, nullable=false)
+	 */
+	protected $persons = null;
 	
 	/**
 	 * @ORM\Column(type="text", name="message")
 	 */
 	protected $message = '';
 	
-	
 	/**
- 	* @ORM\Column(type="datetime", name="date", unique=false, nullable=false)
+ 	* @ORM\Column(type="datetime", name="datefrom", unique=false, nullable=false)
  	*/
-	protected $date = null;
+	protected $datefrom = null;
+
+	/**
+ 	* @ORM\Column(type="datetime", name="dateto", unique=false, nullable=false)
+ 	*/
+	protected $dateto = null;
 
 	
     
-	public function setDate($date='')
+	public function setDateto($date='')
 	{
-		$this->date = new \DateTime($date);
+		$this->dateto = new \DateTime($date);
 	}
 	
-	public function getDate()
+	public function getDateto()
 	{
-		return $this->date->format('Y-m-d H:i:s');
+		return $this->dateto->format('Y-m-d H:i:s');
 	
 	}
+	public function setDatefrom($date='')
+	{
+		$this->datefrom = new \DateTime($date);
+	}
+	
+	// public function getDatefrom()
+	// {
+	// 	return $this->datefrom->format('Y-m-d H:i:s');
+	
+	// }
 	
 	
 	public function getDayString()

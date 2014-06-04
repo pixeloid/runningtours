@@ -1,7 +1,7 @@
 <?php
 
 date_default_timezone_set("Europe/Budapest");
-//setlocale(LC_ALL,'hu_HU.UTF-8');
+setlocale(LC_ALL,'en_GB.UTF-8');
 
 
 // Define path to application directory

@@ -1,4 +1,4 @@
-@import "../fonts/stylesheet.css";
+@import "../fonts/font.css";
 
 @import "../bootstrap-master/less/bootstrap.less";
 @import "../bootstrap-master/less/responsive.less";
@@ -146,6 +146,7 @@ h1,h2,h3,h4,h5{
 	height: 280px;
 	margin-top: 50px;
 	position: relative;
+	display: none;
 }
 
 .mainSlider .container{
@@ -193,7 +194,7 @@ h1,h2,h3,h4,h5{
 }
 .mainSlider dl dt,
 .mainSlider dl dd {
-	width: 390px;
+	width: 590px;
 	margin: 0;
 }
 
@@ -209,15 +210,64 @@ h1,h2,h3,h4,h5{
 	margin-top: 20px;
 }
 
-
-.toursSlider{
+.lastMinute{
 	background: @white;
-      @shadow:  0 20px 20px rgba(0,0,0,.2);
-      .box-shadow(@shadow);
-	margin-top: 100px;
+    .box-shadow(inset 0 0px 10px rgba(0,0,0,.1)); // Redeclare so transitions work
+	margin-top: 60px;
+	padding-bottom: 10px;
+
+	h3{
+		font-size: 28px;
+		margin-top: 0;
+		margin-bottom: 20px;
+		padding-left: 20px;
+		color:@white;
+		background: @white url(../i/sprite_slider.png) no-repeat right top;
+	}
+
+	.ta, .gort{
+		float: left;
+		margin-right: 20px;
+	}
+
+	.gort img{
+		height: 90px;
+		margin-top: -10px;
+	}
+}
+
+.lastMinute .container{
+	position: relative;
+}
+
+.lastMinute p{
+	font-size: 18px;
+}
+
+.lastMinute  a.btn{
+	// font-size: 20px;
+	// margin-top: 20px;
+	// padding-top: 20px;
+	// padding-bottom: 20px;
+	// padding-right: 20px;
+	// padding: 20px;
+	background: @pink;
+	color: @white;
+	font-weight: bold;
+	white-space: nowrap;
 }
 
 
+
+.toursSlider{
+	background: @white;
+    @shadow:  0 20px 20px rgba(0,0,0,.2);
+	.box-shadow(@shadow);
+	position: relative;
+	min-height: 170px;
+	z-index: 10;
+	margin-top: 50px;
+}
 
 .toursSlider h2.container{
 	margin-top: 0;
@@ -229,6 +279,11 @@ h1,h2,h3,h4,h5{
 	font-size: 48px;
 	height: auto;
 }
+.toursSlider .item{
+	position: relative;
+	z-index: 2;
+}
+
 .toursSlider .item h3{
 	background: @green;
 	width: 50%;
@@ -237,15 +292,41 @@ h1,h2,h3,h4,h5{
 	height: 40px;
 }
 .toursSlider .item h3 span{
-	width: 470px;
 	float: right;
 	display: block;
 	background: @white;
+}
+.toursSlider .item .container{
+	height: 130px;
+	position: relative;
+	z-index: 3;
+
+	p{
+		font: normal 18px/1.4 @altFontFamily;
+		margin-top: 23px;
+		width: 590px;
+		text-align: right;
+	}
+
+}
+.toursSlider .item .mapholder{
+	position: absolute;
+	top: -55px;
+    .box-shadow(0 0px 30px rgba(0,0,0,.2)); // Redeclare so transitions work
+	right: 130px;
+	z-index: 10;
+	width:35%;
+	.map{
+		height:200px; 
+		width:100%;
+		background: white;
+	}
 }
 
 .toursSlider .item h3 span strong{
 	float: left;
 	display: block;
+	white-space: nowrap;
 	color: @white;
 	background: @white url(../i/sprite_slider.png) no-repeat right top;
 	font-weight: normal;
@@ -256,7 +337,7 @@ h1,h2,h3,h4,h5{
 	font: normal 22px @headingsFontFamily;
 	color: @white;
 	position: absolute;
-	right: -60px;
+	right: 0px;
 	top: 30px;
 	z-index: 1;
 	text-transform: uppercase;
@@ -266,6 +347,10 @@ h1,h2,h3,h4,h5{
 	padding-right: 30px;
 	background: transparent url(../i/sprite_slider.png) no-repeat right -63px;
 	float: right;
+	&:hover{
+		text-decoration: none;
+		right: -10px;
+	}
 }
 
 
@@ -276,6 +361,7 @@ h1,h2,h3,h4,h5{
 		font-weight: normal;
 		padding: 8px;
 		color: @black;
+		white-space: nowrap;
 	}
 	td{
 		line-height: 1em;
@@ -287,272 +373,287 @@ h1,h2,h3,h4,h5{
 			.border-radius(3px);
 			margin: 2px;
 			padding: 8px;
-			background: @green;
 			color: @white;
+			background: @green;
 			&:hover{
 				text-decoration: none;
 			}
+			&.empty{
+				background: transparent;
+				&:hover{
+					background: @blue;
+				}
+			}
+
+			&.closed{
+				background: @gray;
+				cursor: default;
+			}
+
+		}
+		
+		&.disabled{
+			background: @grayLight
 		}
 	}
 }
 
-@media (min-width: 979px) {
+@media only screen and (max-width : 1200px) {
+	.mainSlider dl dt,
+	.mainSlider dl dd {
+		width: 390px;
+	}
 
-.toursSlider{
-	position: relative;
-	height: 170px;
-	z-index: 10;
-    
-}
+	.toursSlider .item .container{
+		p{
+			font: normal 16px/1.4 @altFontFamily;
+			width: 450px;
+		}
 
-.toursSlider .item{
-	position: relative;
-	top: -40px;
-	z-index: 2;
-}
-
-.toursSlider .item .container{
-	height: 130px;
-	position: relative;
-	z-index: 3;
+	}
 }
 
 
-.toursSlider .item p{
-	font: normal 14px/1.2 @altFontFamily;
-	margin-top: 30px;
-	width: 390px;
-}
-
-.toursSlider .item .map{
-	position: absolute;
-	top: -55px;
-    .box-shadow(0 0px 30px rgba(0,0,0,.2)); // Redeclare so transitions work
-	right: 80px;
-	z-index: 10;
-}
-.toursSlider .container.next{
-	height: 100px;
-	margin-top: -40px;
-	position: relative;
-	z-index: 0;
-}
-.toursSlider .container.next a{
-	display: block;
-	background: transparent url(../i/sprite_slider.png) no-repeat -283px -170px;
-	width: 300px;
-	height: 100px;
-	position: absolute;
-	top: 0;
-	left: 160px;
-	z-index: 1;
-}
-
-.toursSlider .container.next a{
-	display: block;
-	background: transparent url(../i/sprite_slider.png) no-repeat -283px -170px;
-	width: 300px;
-	height: 100px;
-	position: absolute;
-	top: 0;
-	left: 160px;
-	z-index: 1;
-}
-
-.toursSlider .container.next a span{
-	font: normal 22px @headingsFontFamily;
-	color: @pink;
-	text-transform: uppercase;
-	display: block;
-	line-height: 50px;
-	padding-left: 80px;
-	margin-right: 40px;
-}
-
-.toursSlider .container.next a:hover {
-	text-decoration: none;
-}
-
-.toursSlider .container a.show{
-	font: normal 22px @headingsFontFamily;
-	color: @white;
-	position: absolute;
-	right: -60px;
-	top: 30px;
-	z-index: 1;
-	text-transform: uppercase;
-	display: block;
-	line-height: 70px;
-	padding-left: 80px;
-	padding-right: 30px;
-	background: transparent url(../i/sprite_slider.png) no-repeat right -63px;
-	float: right;
-}
-
-.toursSlider .container a.show:hover{
-	right: -70px;
-	text-decoration: none;
-}
-}
-
-.lastMinute{
-	background: @green;
-    .box-shadow(inset 0 0px 10px rgba(0,0,0,.1)); // Redeclare so transitions work
-	margin-top: 60px;
-	padding-bottom: 10px;
-}
-
-.lastMinute .container{
-	position: relative;
-}
-
-.lastMinute p{
-	color: @white;
-	font-size: 18px;
-}
-
-.lastMinute p a.btn{
-	float: right;
-	font-size: 20px;
-	padding-top: 20px;
-	padding-bottom: 20px;
-	padding-right: 20px;
-	padding: 20px;
-	position: absolute;
-	top: 20px;
-	right: 0;
-	background: @pink;
-	color: @white;
-	font-weight: bold;
-}
-
-.leader{
-	margin-top: 30px;
-}
-
-label.control-checkbox{
-	display: inline;
-}
-
-input#accept{
-	margin-left: 180px;
-}
+@media only screen and (max-width : 979px) {
+	
+	body{
+		padding-top: 0px;
+	}
 
 
-@media (min-width: 768px) and (max-width: 979px) {
-body{
-	padding-top: 0px;
-	margin-bottom:  0;
-}
-h1 {
-	margin-left: 20px;;
+	.toursSlider .item .mapholder{
+		.map{
+			height:200px; 
+			width:100%;
+			background: white;
+		}
+	}
+
+	.toursSlider .item .container{
+		p{
+			font: normal 16px/1.4 @altFontFamily;
+			width: 320px;
+		}
+
+	}
+
+	.toursSlider .container a.show{
+		font: normal 22px @headingsFontFamily;
+		color: @white;
+		background: @green;
+		position: static;
+		right: auto;
+		top: auto;
+		z-index: 1;
+		text-transform: uppercase;
+		display: block;
+		line-height: 1.4em;
+		padding: 5px 20px;
+		float: left;
+		margin-left: 200px;
+		&:hover{
+			text-decoration: none;
+			right: -10px;
+		}
+	}
+
+
+
+/*	.toursSlider .container.next{
+		height: 100px;
+		margin-top: -40px;
+		position: relative;
+		z-index: 0;
+	}
+	.toursSlider .container.next a{
+		display: block;
+		background: transparent url(../i/sprite_slider.png) no-repeat -283px -170px;
+		width: 300px;
+		height: 100px;
+		position: absolute;
+		top: 0;
+		left: 160px;
+		z-index: 1;
+	}
+
+	.toursSlider .container.next a{
+		display: block;
+		background: transparent url(../i/sprite_slider.png) no-repeat -283px -170px;
+		width: 300px;
+		height: 100px;
+		position: absolute;
+		top: 0;
+		left: 160px;
+		z-index: 1;
+	}
+
+	.toursSlider .container.next a span{
+		font: normal 22px @headingsFontFamily;
+		color: @pink;
+		text-transform: uppercase;
+		display: block;
+		line-height: 50px;
+		padding-left: 80px;
+		margin-right: 40px;
+	}
+
+	.toursSlider .container.next a:hover {
+		text-decoration: none;
+	}
+
+	.toursSlider .container a.show{
+		font: normal 22px @headingsFontFamily;
+		color: @white;
+		position: absolute;
+		right: -60px;
+		top: 30px;
+		z-index: 1;
+		text-transform: uppercase;
+		display: block;
+		line-height: 70px;
+		padding-left: 80px;
+		padding-right: 30px;
+		background: transparent url(../i/sprite_slider.png) no-repeat right -63px;
+		float: right;
+	}
+
+	.toursSlider .container a.show:hover{
+		right: -70px;
+		text-decoration: none;
+	}
+
+	.leader{
+		margin-top: 30px;
+	}
+
+	label.control-checkbox{
+		display: inline;
+	}
+
+	input#accept{
+		margin-left: 180px;
+	}*/
+
 }
 
-h2{
-	display: none;
-}
-.navbar-fixed-top .navbar .navbar-inner div.nav-collapse ul.nav{
-	padding-top: 30px;	
-}
 
-.navbar-fixed-top .navbar .navbar-inner div.nav-collapse ul.nav li a{
-	padding: 10px 20px;
-	text-align: center;
-	border-bottom: lighten(@pink, 50%);
-}
-.mainSlider{
-	height: auto;
-}
 
-.mainSlider .slideshowNav{
+@media only screen and (max-width : 767px) {
+	body{
+		padding-top: 0px;
+		margin-bottom:  0;
+	}
+	h1 {
+		margin-left: 20px;;
+	}
+
+	h2{
 		display: none;
-}
-.mainSlider dl dd img{
-	position: static;
-	left: auto;
-	right: auto;
-	top: auto;
-	display: none;
-}
-.mainSlider dl{
-	width: auto;
-	padding: 20px 20px;
-}
-.mainSlider dl dt,
-.mainSlider dl dd{
-	margin: 0 0 20px;
-	text-align: center;
-	width: 100%;
-}
+	}
+	.navbar-fixed-top .navbar .navbar-inner div.nav-collapse ul.nav{
+		padding-top: 30px;	
+	}
+
+	.navbar-fixed-top .navbar .navbar-inner div.nav-collapse ul.nav li a{
+		padding: 10px 20px;
+		text-align: center;
+		border-bottom: lighten(@pink, 50%);
+	}
+	.mainSlider{
+		height: auto;
+	}
+
+	.mainSlider .slideshowNav{
+			display: none;
+	}
+	.mainSlider dl dd img{
+		position: static;
+		left: auto;
+		right: auto;
+		top: auto;
+		display: none;
+	}
+	.mainSlider dl{
+		width: auto;
+		padding: 20px 20px;
+	}
+	.mainSlider dl dt,
+	.mainSlider dl dd{
+		margin: 0 0 20px;
+		text-align: center;
+		width: 100%;
+	}
+
+	
+	.toursSlider .item{
+		padding: 20px;
+	}
+
+	.toursSlider .item .mapholder{
+		width: 100% !important;
+		height: 200px !important;
+		position: static;
+	}
+
+	.toursSlider .item h3{
+		background: @green;
+		width: 100%;
+		overflow: hidden;
+		margin: 0;
+		height: 40px;
+	}
+	.toursSlider .item h3{
+		margin-bottom: 10px;
+	}
+
+	.toursSlider .item h3 span{
+		width: auto;
+		float: none;
+		display: block;
+		background: @white;
+	}
+	.toursSlider .item h3 span strong{
+		float: none;
+		text-align: center;
+		display: block;
+		color: @white;
+		background: @green;
+		font-weight: normal;
+		font-style: normal;
+		padding-right: 0;
+	}
+
+	.toursSlider .item .container {
+		height: auto;
+		p{
+			text-align: center;
+			width: auto;
+		}
+	}
+	.toursSlider .container a.show{
+		font: normal 22px @headingsFontFamily;
+		color: @white;
+		position: static;
+		display: block;
+		right: auto;
+		top: auto;
+		text-transform: uppercase;
+		line-height: 30px;
+		padding-left: 20px;
+		padding-right: 20px;
+		background: @pink;
+		float: none;
+		text-align: center;
+		margin: 20px 0 0 0 ;
+	}
 
 
-.toursSlider .item{
-	padding: 20px;
+	footer{
+		padding: 0 !important;
+		margin: 0 !important;
+	}
 }
 
-.toursSlider .item .map{
-	width: 100% !important;
-	height: 200px !important;
+@media only screen and (max-width : 480px) {
 }
-
-.toursSlider .item h3{
-	background: @green;
-	width: 100%;
-	overflow: hidden;
-	margin: 0;
-	height: 40px;
-}
-.toursSlider .item h3{
-	margin-bottom: 20px;
-}
-
-.toursSlider .item h3 span{
-	width: auto;
-	float: none;
-	display: block;
-	background: @white;
-}
-.toursSlider .item h3 span strong{
-	float: none;
-	text-align: center;
-	display: block;
-	color: @white;
-	background: @green;
-	font-weight: normal;
-	font-style: normal;
-	padding-right: 0;
-}
-.toursSlider .container a.show{
-	font: normal 22px @headingsFontFamily;
-	color: @white;
-	position: static;
-	right: auto;
-	top: auto;
-	text-transform: uppercase;
-	line-height: 30px;
-	padding-left: 20px;
-	padding-right: 20px;
-	background: @pink;
-	float: none;
-	text-align: center;
-	margin-top: 20px;
-}
-
-
-footer{
-	padding: 0 !important;
-	margin: 0 !important;
-}
-}
-
-@media (min-width: 1200px) {
-
-
-.mainSlider dl dt,
-.mainSlider dl dd {
-	width: 630px;
-}
-
-}
-
 

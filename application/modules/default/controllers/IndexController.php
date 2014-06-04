@@ -11,12 +11,16 @@ class IndexController extends Zend_Controller_Action
 	public function init()
 	{
 
+
 		$date = new DateTime; 	
 		$this->em = Zend_Registry::get('EntityManager');
+		$this->config = Zend_Registry::get('config');
 		$this->request = $this->getRequest();
 
 		$ajaxContext = $this->_helper->getHelper('AjaxContext');
-	  	$ajaxContext->addActionContext('book-now', 'html')->initContext();
+	  	$ajaxContext->addActionContext('book-now', 'html')
+	  				->addActionContext('timetable', 'html')
+	  				->initContext();
 		
 		$this->fb = new Facebook_Facebook(array(
 		  'appId'  => '325033537600259',
@@ -35,8 +39,9 @@ class IndexController extends Zend_Controller_Action
 		
 		
 		$this->view->request = $this->request;
+		$this->view->config = $this->config;
 
-		$this->maxPerTour = 5;
+		$this->maxPerTour = $this->config->app->maxpersons;
 		
 		$this->prices = array(
 			1 	=>	25,
@@ -61,15 +66,16 @@ class IndexController extends Zend_Controller_Action
 	public function indexAction()
 	{	
 		$now = new DateTime;
-		
-		$query = $this->em->createQuery('SELECT t, r, SUM(r.persons) as s  FROM Entity\Tour t INNER JOIN t.reservations r WHERE r.date > :date  GROUP BY r.date, t.id HAVING s < :maxNum ORDER BY r.date ASC')
+		$lastminute = null;
+
+		$query = $this->em->createQuery('SELECT t, r, SUM(r.persons) as s  FROM Entity\Reservation r INNER JOIN r.tour t WHERE r.datefrom > :date  GROUP BY r.datefrom HAVING s < :maxNum ORDER BY r.datefrom ASC')
 		->setParameters(array(
 			'date' => $now->format('Y-m-d'), 
 			'maxNum' => $this->maxPerTour
 		));
 
 		$result = current($query->getResult());
-		
+
 		if($result)
 		{
 			$lastminute = $result[0];
@@ -77,35 +83,46 @@ class IndexController extends Zend_Controller_Action
 			$lastminute->price = $this->getPrice($lastminute->personsNeeded, 1);
 			
 		}
-		else
-		{
-			$lastminute = null;
-		}
 
 
 		$tours = $this->em->getRepository('Entity\Tour')->findAll();
-		
+		$feedbacks = $this->em->getRepository('Entity\Feedback')->findAll();
+
+		shuffle($feedbacks);
 		shuffle($tours);
 
 		$this->view->tour = $tours[0];
 
 
 		$this->view->lastminute = $lastminute;
-		
+		$this->view->feedback = current($feedbacks);
 	}
 
 	public function bookNowAction()
 	{
-		$id = $this->getRequest()->getParam('id', 1);
+		$id = $this->getRequest()->getParam('tour', false);
 		$date = $this->getRequest()->getParam('date', null);
-		
 		$selectedTour = $this->em->getRepository('Entity\Tour')->findOneById($id);
 		
-		$form = new App_Form_Booking();
+		$form = new App_Form_Booking(array(), $selectedTour);
 		$form->persons->setAttrib('data-url', $this->view->url(array('action' => 'get-price'), null, false));
-		$form->addClass('ajax');
+
 		
+
+		$form->addClass('ajax');
 		$form->setDefaults(array('date' => $date));
+
+		$tourEl = $form->getElement('tour');
+
+		foreach ($this->em->getRepository('Entity\Tour')->findAll() as $tour) {
+			$tourEl->addMultiOption( $tour->id, $tour->title);
+		}
+
+		if($selectedTour){
+			$tourEl->setMultiOptions(array($selectedTour->id => $selectedTour->title));
+		}
+
+
 
 		if (isset($this->fbUserInfo)) {
 
@@ -125,12 +142,14 @@ class IndexController extends Zend_Controller_Action
 	   		$form->persons->addMultiOption($i, $i);
 		}
 
-	  
+
         if ($this->_request->isPost()) {
 
             $formData = $this->_request->getPost();
 			
             if ($form->isValid($formData)) {
+				
+				$tour = $this->em->getRepository('Entity\Tour')->findOneById($formData['tour']);
 				
 				$booking = new Entity\Reservation;
 				
@@ -138,9 +157,14 @@ class IndexController extends Zend_Controller_Action
 				$booking->firstname = $formData['firstname'];
 				$booking->lastname = $formData['lastname'];
 				$booking->gender = $formData['gender'];
-				$booking->date = $formData['date'];
+				$booking->datefrom = $formData['date'];
+				$booking->dateto = $formData['date'];
+				$to = new DateTime($formData['date']);
+				$to->add(new DateInterval('PT'.$tour->hours.'H'));
+				$booking->dateto = $to->format('Y-m-d H:i');
+
 				$booking->persons = $formData['persons'];
-				$booking->tour = $selectedTour;
+				$booking->tour = $tour;
 				$booking->phone = $formData['phone'];
 				$booking->message = $formData['message'];
 				
@@ -206,7 +230,7 @@ class IndexController extends Zend_Controller_Action
 				$booking->gender = $formData['gender'];
 				$booking->phone = $formData['phone'];
 				$booking->persons = $formData['persons'];
-				$booking->date = date('Y-m-d H:i:s');
+				$booking->datefrom = date('Y-m-d H:i:s');
 				$booking->message = $formData['message'];
 				
                 $this->em->persist($booking);
@@ -229,13 +253,17 @@ class IndexController extends Zend_Controller_Action
 	{
 		$id = $this->getRequest()->getParam('id', 1);
 		$selectedTour = $this->em->getRepository('Entity\Tour')->findOneById($id);
-		$dates = $this->getRouteDates($id, $this->_request->getPost('persons', 1));
 		
 		$this->view->headTitle()->prepend($selectedTour->title);
 		$this->view->tours = $this->em->getRepository('Entity\Tour')->findAll();
 		$this->view->selectedTour = $selectedTour;
-		$this->view->dates = $dates;
 		
+	}
+
+	public function timetableAction()
+	{
+		$timetable = $this->getTimetable();
+		$this->view->timetable = $timetable;
 	}
 
 	public function getRouteDatesAction()
@@ -259,10 +287,8 @@ class IndexController extends Zend_Controller_Action
 		$form = new App_Form_Tour();
 		
 		$tourArray = $tour->toArray();
-		$tourArray['hour'] = $tour->hour;
-
 		$form->populate($tourArray);
-		$form->day->setValue(explode('|', $tour->day));
+		$form->prices->setValue(implode(',', $tour->prices));
 
         if ($this->_request->isPost()) {
 
@@ -299,7 +325,6 @@ class IndexController extends Zend_Controller_Action
 				$this->_helper->redirector->gotoRoute(array('action' => 'tours'));
 				
             }
-
         }
 
 		$fileids = array();
@@ -315,10 +340,76 @@ class IndexController extends Zend_Controller_Action
 		
 	}
 
+
+	public function addTourAction()
+		{	
+			
+			if(!$this->isAdmin) $this->_helper->redirector->gotoRoute(array('action' => 'index'));
+			
+			$form = new App_Form_Tour();
+			
+			// $tourArray = $tour->toArray();
+			// $tourArray['hour'] = $tour->hour;
+
+			// $form->populate($tourArray);
+			// $form->day->setValue(explode('|', $tour->day));
+
+	        if ($this->_request->isPost()) {
+
+	            $formData = $this->_request->getPost();
+					
+				
+	            if ($form->isValid($formData)) {
+					
+					$tour = new Entity\Tour;
+
+					$tour->brief = $formData['brief'];
+					$tour->description = $formData['description'];
+					$tour->stops = $formData['stops'];
+					$tour->title = $formData['title'];
+					$tour->hours = $formData['hours'];
+					$tour->distance = $formData['distance'];
+					$tour->prices = explode(',', $formData['prices']);
+					
+					$tour->photos->clear();
+					foreach(explode(',', $formData['photos']) as $id)
+					{
+						$file = $this->em->getRepository('Entity\File')->findOneById($id);
+						
+						if(!$file) continue;
+						
+						$tourphoto = new Entity\TourPhoto;
+						$tourphoto->file = $file;
+						$tourphoto->tour = $tour;
+						$tour->photos->add($tourphoto);
+					}
+					
+	                $this->em->persist($tour);
+	                $this->em->flush();
+					
+					$this->_helper->redirector->gotoRoute(array('action' => 'tours'));
+					
+	            }
+
+	        }
+
+			// $fileids = array();
+			// foreach ($tour->photos as $photo) {
+			// 	if(!$photo->file) continue;
+			// 	$fileids[] = $photo->file->id;
+			// }
+			// $form->photos->setValue(implode(',', $fileids));
+
+
+			$this->view->form = $form;		
+			//$this->view->tour = $tour;
+			
+		}
+
 	
 	public function getRouteFreePlaces($id, $date)
 	{
-		$query = $this->em->createQuery('SELECT SUM(r.persons) as num FROM Entity\Reservation r LEFT JOIN r.tour t  WHERE r.date = :date AND t.id = :tourId  GROUP BY r.date')
+		$query = $this->em->createQuery('SELECT SUM(r.persons) as num FROM Entity\Reservation r LEFT JOIN r.tour t  WHERE r.datefrom = :date AND t.id = :tourId  GROUP BY r.datefrom')
 		
 		->setParameters(array(
 			'date' => ($date), 
@@ -341,98 +432,92 @@ class IndexController extends Zend_Controller_Action
 	
 	
 	
-	private function getRouteDates($id = null, $numPersons = 1)
+	private function getTimetable()
 	{
 
-		$selectedTour = $this->em->getRepository('Entity\Tour')->findOneById($id);
-		$now = new DateTime;
+
+
+		$reservations = array();
+
+		$now = new DateTime(date('Y-m-d'));
 		$now->add(new DateInterval('P1D'));
+		$now->add(new DateInterval('PT7H'));
 
 		$result = array();
 
+		$query = $this->em->createQuery('SELECT r.datefrom, r.dateto, t.title, t.id AS tourid, t.hours, t.onlyinaday AS onlyinaday,  SUM(r.persons) as num FROM Entity\Reservation r LEFT JOIN r.tour t  WHERE r.datefrom > :today GROUP BY r.datefrom');
+		$query->setParameters(array(
+			'today' =>  new DateTime
+			)
+		);
+
+		$r = $query->getArrayResult();
 		
-		for ($i=0; $i < 30; $i++) { 
+		foreach($r as $reservation){
+			$reservations[$reservation['datefrom']->format('Y-m-d H:i')] = $reservation;
+		}
+
+
+		$days = array();
+		
+		for ($i=0; $i < 2*7*21 + 12; $i++) { 
 			
-			
-			$now->add(new DateInterval('P1D'));
-			if(strstr($selectedTour->day, $now->format('N'))){
-				
-				$day = array();
-				$tourDateTime = new DateTime($now->format('Y-m-d') . ' ' . $selectedTour->hour);
-				
-				
-				$query = $this->em->createQuery('SELECT SUM(r.persons) as num FROM Entity\Reservation r LEFT JOIN r.tour t  WHERE r.date = :date AND t.id = :tourId  GROUP BY r.date')
-				
-				->setParameters(array(
-					'date' =>  $tourDateTime,
-					'tourId' => $id
-					)
+			$nowformatted = $now->format('Y-m-d H:i');
+
+			$current = array(
+					'hour' => clone $now,
+					'reservation' => isset($reservations[$nowformatted]) ? $reservations[$nowformatted] : null
 				);
-				
-				try {
-					
-					$reservedPersons = $query->getSingleScalarResult();
-					
-				} catch (Exception $e) {
-					
-					$reservedPersons = 0;
-				}
-				
-				
-				$left = $this->maxPerTour - $reservedPersons;
-				$reserved = $this->maxPerTour - $left;
-				
-				if($left < $numPersons) continue;
-				
-				$d = $tourDateTime;
-				
-				$date = $d->format('Y-m-d H:i:s');
-				$percent = 100 - ($left / $this->maxPerTour * 100);
-				$price = $this->getPrice($left, $numPersons);
-				$dayName = $now->format('l');
-				
-			//	$text = '<strong>' . strftime('%A %e %B %Y', strtotime($date)) . '</strong>';
-				$text = '<strong>' . strftime('%c', strtotime($date)) . '</strong>';
-				$text .= '<div class="progress" style="margin:0"><div class="bar bar-danger" style="width: ' . $percent . '%">' . $reserved . ' reserved</div><div class="bar bar-success" style="width: ' . (100 - $percent) . '%">' . $left . ' free</div></div>';
-				$text .= "<span  class=\"text-pink\">$price EUR per person</span>";
-				
-				$day['date'] = $d;
-				$day['personsLeft'] = $left;
-				$day['percent'] = $percent;
-				$day['price'] = $price;
-				$day['dayName'] = $dayName;
-				$day['text'] = $text;
 
-				$result[] = $day;
+			$days[] = $current;
 
+			if ($now->format('H') == '23') {
+				$now->add(new DateInterval('PT8H'));
+			}else{
+				$now->add(new DateInterval('PT1H'));
 			}
-			
+
 			
 		}
-		
-		return $result;
+
+		return $days;
 	
 	}
 
 	public function getPriceAction()
 	{	
 		
-		$id = $this->getRequest()->getParam('id', null);
+		$id = $this->getRequest()->getParam('tour', null);
 		$date = $this->getRequest()->getParam('date', null);
 		$persons = $this->getRequest()->getParam('persons', 1);
-		
-		
-		
-		$freePlaces = $this->getRouteFreePlaces($id, $date);
-		
-		$this->_helper->json($this->getPrice($freePlaces, $persons));
+		$tour = $this->em->getRepository('Entity\Tour')->findOneById($id);
+		$freePlaces = $this->getRouteFreePlaces($tour->id, $date);
+
+		$prices = array(
+			$tour->prices[0],
+			$tour->prices[1],
+			$tour->prices[1],
+			$tour->prices[2],
+			$tour->prices[2]
+		);
+
+		$label= '<label class="control-label"> Number of persons:<br /><a href="#" class="pop" data-toggle="popover" data-trigger="hover" data-html="true" data-placement="right" data-content="We are pleased to offer discounts for group bookings.
+																<ul><li>'.$tour->prices[0].' euro/1 person</li>
+				                                                <li>'.$tour->prices[1].' euro/ persons for 2-3</li>
+				                                                <li>'.$tour->prices[2].' euro/ person for 4-5</li>
+				                                               	</ul> <p>We do not undertake the risk of the absence of other customers. Prices on the website serve only informational purposes. Final price will be counted on the actual number of participants.</p>">How we calculate?</a></label>';
+
+
+		$this->_helper->json(array(
+			'price' => $prices[$this->maxPerTour - $freePlaces + $persons - 1],
+			'label' => $label
+		));
 		
 	}
 
 	public function getPrice($personsLeft, $persons)
 	{
-		
-		return $this->prices[$this->maxPerTour - $personsLeft + $persons] ;
+
 		
 	}
 
@@ -440,7 +525,7 @@ class IndexController extends Zend_Controller_Action
 	{	
 		
 		
-		$body = "Hello $booking->firstname $booking->lastname!\n\n\nThanks for booking  your " . $booking->tour->title . " with us, for $booking->persons person(s).\n\nAre You ready for the advanture? An amazing experience comes to You soon!\n\nSave the date: " . strftime('%x',strtotime($booking->date)) . "\n\nMeeting point is at " . $booking->tour->stops[0] . "\nPlease be on time!\n\n\n";
+		$body = "Hello $booking->firstname $booking->lastname!\n\n\nThanks for booking  your " . $booking->tour->title . " with us, for $booking->persons person(s).\n\nAre You ready for the adventure? An amazing experience comes to You soon!\n\nSave the date: " . $booking->datefrom->format('d-M-Y H:i') . "\n\nMeeting point is at " . $booking->tour->stops[0] . "\nPlease be on time!\n\n\n";
 		
 		if($booking->message){
 			$body .= "Your message: $booking->message\n\n";
@@ -481,7 +566,7 @@ https://www.facebook.com/RunningToursBudapest";
 	{	
 		
 		
-		$body = "Hello $booking->firstname $booking->lastname!\n\n\nThanks for booking  your customized tour for $booking->persons person(s).\n\nNow we are processing your request. We will get back to you in 24 hours with our customized special offer.\n\nAre You ready for the advanture? An amazing experience comes to You soon!\n\n\n";
+		$body = "Hello $booking->firstname $booking->lastname!\n\n\nThanks for booking  your customized tour for $booking->persons person(s).\n\nNow we are processing your request. We will get back to you in 24 hours with our customized special offer.\n\nAre You ready for the adventure? An amazing experience comes to You soon!\n\n\n";
 		
 		if($booking->message){
 			$body .= "Your message contained the following: $booking->message\n\n";

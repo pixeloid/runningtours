@@ -12,6 +12,7 @@ Site = (function() {
 
 	var onWindowLoad = function() {
 		$('.loading').fadeOut();
+		$('.mainSlider').fadeIn();
 	}
 
 
@@ -21,18 +22,35 @@ Site = (function() {
 			
 			var 	url = $(this).data('url');
 					$this = $(this),
-					$holder = $this.closest('.controls').next('div.controls.price').length ? $this.closest('.controls').next('div.controls.price') : $('<div class="controls price">Price for 1 person: <b class="subtotal"></b> EUR<br>Total: <b class="total"></b> EUR</div>').insertAfter($this.closest('.controls'));
+					$holder = $this.closest('.controls').next('div.controls.price').length ? $this.closest('.controls').next('div.controls.price') : $('<div class="controls price">Price for 1 person: <b class="subtotal"></b> EUR<br>Total: <b class="total"></b> EUR</div>').insertAfter($this.closest('.controls'))
+					tourId = $('select[name=tour]').val();
 					
 			e.preventDefault();
 			
 			$holder.css('opacity', 0);
 			
-			$.getJSON(url, {persons: $(this).val()}, function(data){
-				$holder.find('b.subtotal').text(data)
-				$holder.find('b.total').text(data * $this.val())
+			$.getJSON(url, {persons: $(this).val(), tour: tourId}, function(data){
+				$this.closest('.control-group').find('label').remove()
+				var $label = $(data.label);
+				$this.closest('.control-group').prepend($label)
+				$holder.find('b.subtotal').text(data.price)
+				$holder.find('b.total').text(data.price * $this.val())
 				$holder.animate({ opacity: 1 })
+
+				$label.find('a').popover({
+					trigger: 'hover',
+					html: true,
+					placement: 'bottom'
+				}).click(function(e){
+					e.preventDefault();
+				});
+
 			})
 
+		})
+
+		$('body').delegate('select#tour', 'change', function(){
+			$('select#persons').change()
 		})
 		
 		$('body').delegate('.modal', 'loadcomplete', function(e){
@@ -96,10 +114,13 @@ Site = (function() {
 					}
 					else
 					{	
+
+						initTimetable();
+
 						if($loadTarget){
 
 							return $loadTarget.html(data);
-							//$loadTarget.trigger('loadcomplete')
+							
 
 						}
 						else
@@ -232,13 +253,55 @@ Site = (function() {
 		})
 	}
 
+	var initTimetable = function(){
+		
+		$('#timetable').delegate('a.closed', 'click', function(e){
+			e.preventDefault();
+			e.stopPropagation();
+		})
+		
+		$('#timetable').css('opacity', 0).load('index/timetable', {format: 'html'}, function(){
+			$('#timetable').animate({'opacity': 1},1000);
+			$('#timetable td a').popover({
+				trigger: 'hover',
+				html: true,
+				placement: 'top'
+			});
+
+			$('#timetable td a').not('.empty').each(function(){
+				$(this).parent().prevAll('td').slice(0,2).each(function(){
+					if(!$('a',this).hasClass('empty')) return;
+					$('a', this).remove();
+					$(this).addClass('disabled')
+				})
+			})
+
+			$('#timetable td a.onlyinaday').closest('tr').find('td a.empty').parent().addClass('disabled').each(function(){
+				$('a', this).remove('a')
+			})
+
+			$('#timetable tr').each(function(){
+				var $td = $('td', this);
+				$td.slice($td.length - 2,$td.length).each(function(){
+					if(!$('a',this).hasClass('empty')) return;
+					$('a', this).remove();
+					$(this).addClass('disabled')
+				})
+			})
+
+		});
+
+	}
+
 	return {
 
 
 		init: function(options) {
 
 			$(window).load(onWindowLoad);
+
 			initAjaxOperations()
+			
 			$('.mainSlider .container').slideshow()
 			
 			$('a[data-toggle="tab"]').on('show', function (e) {
@@ -253,320 +316,318 @@ Site = (function() {
 
 			initPlUpload();
 
+			initTimetable();
+
 		}
 
 	}
 
-	})();
+})();
 
 
-	Site.Maps = {
+Site.Maps = {
 
 
-		initialize: function(el, $points) {
+	initialize: function(el, $points) {
 
-			var directionsDisplay = new google.maps.DirectionsRenderer();
-			var directionsService = new google.maps.DirectionsService();
-			var geocoder = new google.maps.Geocoder();
-			var points = [];
-			var map = null;
-			var mapEl = el || $('#route-map')[0];
+		var directionsDisplay = new google.maps.DirectionsRenderer();
+		var directionsService = new google.maps.DirectionsService();
+		var geocoder = new google.maps.Geocoder();
+		var points = [];
+		var map = null;
+		var mapEl = el || $('#route-map')[0];
 
-			var styles = [
-			  {
-			    stylers: [
-			      { hue: "#dc0384" },
-			      { saturation: 0 }
-			    ]
-			  },{
-			    featureType: "road",
-			    elementType: "geometry",
-			    stylers: [
-			      { lightness: 20 },
-			      { visibility: "simplified" }
-			    ]
-			  },{
-			    featureType: "road",
-			    elementType: "labels",
-			    stylers: [
-			     // { visibility: "off" }
-			    ]
-			  }
-			];
-
-
-			$points.find('li').each(function(){
-				points.push({
-					location: $(this).text(),
-					stopover: true
-				});
-			})
-
-			$points.hide();
-			
-			if(points.length < 3) return;
-			
-			var start = $(points).first()[0].location;
-			var end = $(points).last()[0].location;
-
-			$(points).first().remove()
-			$(points).last().remove()
+		var styles = [
+		  {
+		    stylers: [
+		      { hue: "#dc0384" },
+		      { saturation: 0 }
+		    ]
+		  },{
+		    featureType: "road",
+		    elementType: "geometry",
+		    stylers: [
+		      { lightness: 20 },
+		      { visibility: "simplified" }
+		    ]
+		  },{
+		    featureType: "road",
+		    elementType: "labels",
+		    stylers: [
+		     // { visibility: "off" }
+		    ]
+		  }
+		];
 
 
-			geocoder.geocode( { 'address': start}, function(results, status) {
-				
-				if (status == google.maps.GeocoderStatus.OK) {
-					
-					var myOptions = {
-						//zoom: 14,
-						overviewMapControl: true,
-						zoomControl: true,
-						disableDefaultUI: true,
-						center: results[0].geometry.location,
-						mapTypeId: google.maps.MapTypeId.ROADMAP
-					}
-
-					map = new google.maps.Map(mapEl, myOptions);
-				
-					
-				//	map.setOptions({styles: styles});
-
-
-					directionsDisplay.setMap(map);
-					
-
-				}
-				
+		$points.find('li').each(function(){
+			points.push({
+				location: $(this).text(),
+				stopover: true
 			});
+		})
+
+		$points.hide();
+		
+		if(points.length < 3) return;
+		
+		var start = $(points).first()[0].location;
+		var end = $(points).last()[0].location;
+
+		$(points).first().remove()
+		$(points).last().remove()
 
 
-			var request = {
-				origin: start,
-				destination: end,
-				waypoints: points,
-				optimizeWaypoints: true,
-				travelMode: google.maps.DirectionsTravelMode.WALKING
-			};
-
-			directionsService.route(request, function(response, status) {
-
-				if (status == google.maps.DirectionsStatus.OK) {
-					directionsDisplay.setDirections(response);
+		geocoder.geocode( { 'address': start}, function(results, status) {
+			
+			if (status == google.maps.GeocoderStatus.OK) {
+				
+				var myOptions = {
+					//zoom: 14,
+					overviewMapControl: true,
+					zoomControl: true,
+					disableDefaultUI: true,
+					center: results[0].geometry.location,
+					mapTypeId: google.maps.MapTypeId.ROADMAP
 				}
-			})
-		}
-	}
-	
-	Site.Slideshow = {
-		
-		$el: null,
-		$elements: [],
-		currentIndex: 0,
-		timer : null,
-		init: function(options, el){
-			
-			that = this;
-			this.$elements = $(el).children().hide()
-			this.$el = $(el);
-			this.$nav = $('<ul />').addClass('slideshowNav').prependTo(this.$el)
-			
-			this.$nav.wrap('<div class="container" />')
-			
-			
-			this.$elements.each(function(i){
-			
-				$(this).find('img, dt, dd.details').each(function(){
 
-					$(this).data('orig', {
-						left: $(this).css('left'),
-						right: $(this).css('right'),
-						top: $(this).css('top'),
-						opacity: $(this).css('opacity'),
-						marginLeft: $(this).css('marginLeft'),
-						marginRight: $(this).css('marginRight')
-					}).css({'opacity': 0})
-					
-				})
-
-				var $navItem = $('<a href="#" />').text(i+1).data('toggle', i)
-				that.$nav.append($navItem)
-				$navItem.wrap('<li>')
+				map = new google.maps.Map(mapEl, myOptions);
+			
 				
-				$navItem.click(function(e){
-					
-					that.currentIndex = $(this).data('toggle');
-					
-					clearInterval(that.timer);
-					
- 					that.showSlide(that.currentIndex)		
-					
-					that.startTimer()
-					
-					e.preventDefault();
-	
-				})
-			})
-			
-			
-			this.startTimer();
-			this.showSlide(this.currentIndex)			
-		},
-		
-		startTimer: function(){
-		
-			var that = this;
-			
-			this.timer = setInterval(function(){
-
-				that.currentIndex ++;
-				that.currentIndex = (that.currentIndex < that.$elements.length) ? that.currentIndex : 0;
-
-				that.showSlide(that.currentIndex)
+			//	map.setOptions({styles: styles});
 
 
-			}, 6000);
-			
-			this.showSlide(this.currentIndex)
-			
-		},
-		
-		resetCss: function($el){
-			$el.css({
-				marginRight: $(this).data('orig').marginRight,
-				marginLeft: $(this).data('orig').marginLeft,
-				left: $(this).data('orig').left,
-				right: $(this).data('orig').right,
-				top: $(this).data('orig').top,
-				opacity: $(this).data('orig').opacity
-			})
-		},
-		
-		showSlide: function(index){
-			
-			var $el = this.$elements.eq(index)
-			var $navItem = this.$nav.find('li').eq(index)
-			
-			this.$nav.find('li').removeClass('active')
-			$navItem.addClass('active');
-
-			this.$elements.hide();
-			
-			$el.show();
-			
-			$('img', $el).css({
-				opacity: 0,
-				right: -300
-			
-			}).delay(200).animate({
+				directionsDisplay.setMap(map);
 				
-				right: $('img', $el).data('orig').right, 
-				opacity: 1
 
-			}, 500, jQuery.easing.easeOutBounce)
-
-			$('dd.details', $el).css({
-				
-				opacity: 0,
-				marginLeft: 300
+			}
 			
-			}).delay(400).animate({
-				
-				marginLeft: $('dd', $el).data('orig').marginLeft, 
-				opacity: $('dd', $el).data('orig').opacity
-
-			}, 300, jQuery.easing.easeOutBounce)
+		});
 
 
-			$('dt', $el).css({
-				
-				marginLeft: -140,
-				opacity: 0
-			
-			}).animate({
-				
-				marginLeft: $('dt', $el).data('orig').marginLeft, 
-				opacity: $('dt', $el).data('orig').opacity
-
-			}, 600, jQuery.easing.easeOutBounce)
-
-			
-			
-		}
-		
-		
-	}
-	
-	;(function($){
-
-		$.fn.slideshow = function(options) {
-
-			if (this.length) {
-
-				return this.each(function(){
-
-					var _ss = Object.create(Site.Slideshow);
-
-					_ss.init(options, this); // `this` refers to the element
-
-					$.data(this, 'slideshow', _ss);
-				});
-			};
+		var request = {
+			origin: start,
+			destination: end,
+			waypoints: points,
+			optimizeWaypoints: true,
+			travelMode: google.maps.DirectionsTravelMode.WALKING
 		};
+
+		directionsService.route(request, function(response, status) {
+
+			if (status == google.maps.DirectionsStatus.OK) {
+				directionsDisplay.setDirections(response);
+			}
+		})
+	}
+}
+
+
+Site.Slideshow = {
+	
+	$el: null,
+	$elements: [],
+	currentIndex: 0,
+	timer : null,
+	init: function(options, el){
 		
-	})(jQuery);
-	
-	
-	
-
-	$(window).load(function() {
-
-
-	});
-
-
-	$(document).ready(function() {
-
-		Site.init();
-
-		Site.Maps.initialize($('#route-map')[0], $('#points'));
+		that = this;
+		this.$elements = $(el).children().hide()
+		this.$el = $(el);
+		this.$nav = $('<ul />').addClass('slideshowNav').prependTo(this.$el)
 		
-		$('label a').click(function(e){
-			e.stopPropagation();
+		this.$nav.wrap('<div class="container" />')
+		
+		
+		this.$elements.each(function(i){
+		
+			$(this).find('img, dt, dd.details').each(function(){
+
+				$(this).data('orig', {
+					left: $(this).css('left'),
+					right: $(this).css('right'),
+					top: $(this).css('top'),
+					opacity: $(this).css('opacity'),
+					marginLeft: $(this).css('marginLeft'),
+					marginRight: $(this).css('marginRight')
+				}).css({'opacity': 0})
+				
+			})
+
+			var $navItem = $('<a href="#" />').text(i+1).data('toggle', i)
+			that.$nav.append($navItem)
+			$navItem.wrap('<li>')
+			
+			$navItem.click(function(e){
+				
+				that.currentIndex = $(this).data('toggle');
+				
+				clearInterval(that.timer);
+				
+					that.showSlide(that.currentIndex)		
+				
+				that.startTimer()
+				
+				e.preventDefault();
+
+			})
 		})
 		
-		tinyMCE.init({
-		        // General options
-		        mode : "specific_textareas",
-		        editor_selector : "tiny",
-		        theme : "advanced",
-		     //   plugins : "autolink,lists,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
+		
+		this.startTimer();
+		this.showSlide(this.currentIndex)			
+	},
+	
+	startTimer: function(){
+	
+		var that = this;
+		
+		this.timer = setInterval(function(){
 
-		        // Theme options
-		        theme_advanced_buttons1 : "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull",
-		        theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,cleanup,help,code",
-		        theme_advanced_buttons3 : "",
-		        theme_advanced_buttons4 : "",
-		        theme_advanced_toolbar_location : "top",
-		        theme_advanced_toolbar_align : "left",
-		        theme_advanced_statusbar_location : "bottom",
-		        theme_advanced_resizing : true,
+			that.currentIndex ++;
+			that.currentIndex = (that.currentIndex < that.$elements.length) ? that.currentIndex : 0;
 
-		        // Skin options
-		        skin : "o2k7",
-		        skin_variant : "silver",
-
-		        // // Example content CSS (should be your site CSS)
-		         content_css : "css/styles.css",
+			that.showSlide(that.currentIndex)
 
 
-		});
+		}, 6000);
+		
+		this.showSlide(this.currentIndex)
+		
+	},
+	
+	resetCss: function($el){
+		$el.css({
+			marginRight: $(this).data('orig').marginRight,
+			marginLeft: $(this).data('orig').marginLeft,
+			left: $(this).data('orig').left,
+			right: $(this).data('orig').right,
+			top: $(this).data('orig').top,
+			opacity: $(this).data('orig').opacity
+		})
+	},
+	
+	showSlide: function(index){
+		
+		var $el = this.$elements.eq(index)
+		var $navItem = this.$nav.find('li').eq(index)
+		
+		this.$nav.find('li').removeClass('active')
+		$navItem.addClass('active');
+
+		this.$elements.hide();
+		
+		$el.show();
+		
+		$('img', $el).css({
+			opacity: 0,
+			right: -300
+		
+		}).delay(200).animate({
+			
+			right: $('img', $el).data('orig').right, 
+			opacity: 1
+
+		}, 500, jQuery.easing.easeOutBounce)
+
+		$('dd.details', $el).css({
+			
+			opacity: 0,
+			marginLeft: 300
+		
+		}).delay(400).animate({
+			
+			marginLeft: $('dd', $el).data('orig').marginLeft, 
+			opacity: $('dd', $el).data('orig').opacity
+
+		}, 300, jQuery.easing.easeOutBounce)
+
+
+		$('dt', $el).css({
+			
+			marginLeft: -140,
+			opacity: 0
+		
+		}).animate({
+			
+			marginLeft: $('dt', $el).data('orig').marginLeft, 
+			opacity: $('dt', $el).data('orig').opacity
+
+		}, 600, jQuery.easing.easeOutBounce)
+
 		
 		
-		
-		
-		
-		
-		
+	}
+	
+	
+}
+
+;(function($){
+
+	$.fn.slideshow = function(options) {
+
+		if (this.length) {
+
+			return this.each(function(){
+
+				var _ss = Object.create(Site.Slideshow);
+
+				_ss.init(options, this); // `this` refers to the element
+
+				$.data(this, 'slideshow', _ss);
+			});
+		};
+	};
+	
+})(jQuery);
+
+
+
+
+$(window).load(function() {
+
+
+});
+
+
+$(document).ready(function() {
+
+	Site.init();
+
+	Site.Maps.initialize($('#route-map')[0], $('#points'));
+	
+	$('label a').click(function(e){
+		e.stopPropagation();
+	})
+	
+
+	tinyMCE.init({
+	        // General options
+	        mode : "specific_textareas",
+	        editor_selector : "tiny",
+	        theme : "advanced",
+	     //   plugins : "autolink,lists,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
+
+	        // Theme options
+	        theme_advanced_buttons1 : "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull",
+	        theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,cleanup,help,code",
+	        theme_advanced_buttons3 : "",
+	        theme_advanced_buttons4 : "",
+	        theme_advanced_toolbar_location : "top",
+	        theme_advanced_toolbar_align : "left",
+	        theme_advanced_statusbar_location : "bottom",
+	        theme_advanced_resizing : true,
+
+	        // Skin options
+	        skin : "o2k7",
+	        skin_variant : "silver",
+
+	        // // Example content CSS (should be your site CSS)
+	         content_css : "css/styles.css",
+
+
 	});
+	
+});
 
 

@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.8, created on 2013-07-19 13:31:51
+<?php /* Smarty version Smarty-3.1.8, created on 2014-05-29 01:53:49
          compiled from "/Users/pixeloid/Sites/runningtours/application/modules/default/views/scripts/index/gallery.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:43409763751e9227af0cbd5-26213689%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '84771ca537ca3286a41bbfad153f3c6e80e4282d' => 
     array (
       0 => '/Users/pixeloid/Sites/runningtours/application/modules/default/views/scripts/index/gallery.tpl',
-      1 => 1374233510,
+      1 => 1374233985,
       2 => 'file',
     ),
   ),
@@ -57,7 +57,4 @@ $_smarty_tpl->tpl_vars['photo']->_loop = true;
 
 
 
-<div id="modal-gallery" class="modal modal-gallery hide fade" tabindex="-1">
-    <div class="modal-body"><div class="modal-image"></div></div>
-</div>
 <?php }} ?>

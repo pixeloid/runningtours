@@ -47,46 +47,57 @@
  
  
 
-{if isset($lastminute->title)}
+{if $lastminute}
 
 <div class="lastMinute">
 	<div class="container">
-		<h3>Last minute reservation!</h3>
-		<p>Book now for {$lastminute->personsNeeded} tourists on the {$lastminute->title}, only for {$lastminute->price} EUR per person, on {$lastminute->reservations->first()->date}!
-			<a href="{$this->url([action => 'book-now', id => $lastminute->id])}" class="btn">Book Now!</a>
-		</p>
+		<div class="row">
+			<div class="span4">
+				<h3>Last minute!</h3>
 
+				<p><b>{$lastminute->personsNeeded} place{if $lastminute->personsNeeded gt 1}s{/if}</b> left for the {$lastminute->tour->title} on <b>{$lastminute->datefrom->format('d-M-Y')}</b> at {$lastminute->datefrom->format('H:i')} only for {$lastminute->price} EUR/person!</p>
+
+				<a href="{$this->url([action => 'tours', id => $lastminute->tour->id])}" class="btn">Book Now!</a>
+			</div>
+			<div class="span4">
+				<h3>Our partners!</h3>
+				<div class="ta">							
+					<div id="TA_linkingWidgetRedesign960" class="TA_linkingWidgetRedesign">
+						<ul id="4218O6N" class="TA_links xB29w6xvxe">
+							<li id="9DLHnTbMf" class="lo1PJeMLy1i">Read reviews of <a target="_blank" href="http://www.tripadvisor.co.uk/Attraction_Review-g274887-d4048276-Reviews-Running_Tours_Budapest-Budapest_Central_Hungary.html">Running Tours Budapest</a></li>
+						</ul>
+					</div>
+					<script src="http://www.jscache.com/wejs?wtype=linkingWidgetRedesign&amp;uniq=960&amp;locationId=4048276&amp;lang=en_UK&amp;border=true"></script>
+				</div>				
+				<div class="gort">
+					<a href="http://www.gorunningtours.com" target="_blank"><img src="i/gort_logo_premiumpartner_180x62.png" ></a>
+				
+				</div>
+
+			</div>
+			<div class="span4">
+				<h3>Thank you!</h3>
+				<blockquote>
+					<p>{$feedback->description}</p>
+					<i>{$feedback->author}</i>
+				</blockquote>
+			</div>
+		</div>
 	</div>
 </div>
 
 {/if}
 
-<div class="container">
-	<div class="toplogos " style="padding-top: 20px;">
-		<div class="ta">							
-			<div id="TA_linkingWidgetRedesign960" class="TA_linkingWidgetRedesign">
-				<ul id="4218O6N" class="TA_links xB29w6xvxe">
-					<li id="9DLHnTbMf" class="lo1PJeMLy1i">Read reviews of <a target="_blank" href="http://www.tripadvisor.co.uk/Attraction_Review-g274887-d4048276-Reviews-Running_Tours_Budapest-Budapest_Central_Hungary.html">Running Tours Budapest</a></li>
-				</ul>
-			</div>
-			<script src="http://www.jscache.com/wejs?wtype=linkingWidgetRedesign&amp;uniq=960&amp;locationId=4048276&amp;lang=en_UK&amp;border=true"></script>
-		</div>				
-		<div class="gort">
-			<a href="http://www.gorunningtours.com" target="_blank"><img src="i/gort_logo_premiumpartner_180x62.png" style="margin-top: -35px;margin-left: 10px; position: relative; z-index: 100" alt="Gort Logo Premiumpartner 180x62">						</div></a>
-	
-	</div>
-	
-</div>
 
 <div class="toursSlider">
 
 	<!-- <h2 class="container">Check out our tours!</h2> -->
 	<div class="item">
-		<h3><span><strong>{$tour->title}</strong></span></h3>
+		<h3><span class=""><strong>{$tour->title}</strong></span></h3>
 		<div class="container">
 			<p>{$tour->brief}</p>
 			
-			<div class="map" id="map-{$tour->id}" style="height:200px; width:450px"></div>
+			<div class="mapholder"><div class="map" id="map-{$tour->id}" style=""></div></div>
 			<ul class="points">
 				{foreach $tour->stops as $stop}
 					<li>{$stop}</li>

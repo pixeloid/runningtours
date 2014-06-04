@@ -16,33 +16,27 @@
 					</a>
 				</li>
 				{/foreach}
-<!-- 				<li>
-					<a href="{$this->url([action=>'customized-tour'], null, true)}"><strong>Need a customized tour?</strong></a>
-				</li>
- -->			</ul>
+				{if $isAdmin}<li>
+					<a href="{$this->url([action=>'add-tour'], null, true)}"><strong>Add tour...</strong></a>
+				</li>{/if}
+			</ul>
 			
 
 			<div class="well">
-				{if rand(1,2) eq 1}
-<p>				<a href="{$this->url([action=>'customized-tour'], null, true)}" class="btn btn-info btn-large btn-block">Other time, other route?</a>
-				</p>				<p>If you wish to start your tour at a different time, or run off the beaten path, just let us know and we can set up a customized tour for you!</p>
+				{$rand = rand(1,3)}
+				{if $rand eq 1}
+					<p><a href="{$this->url([action=>'customized-tour'], null, true)}" class="btn btn-info btn-large btn-block">Other time, other route?</a></p>
+					<p>If you wish to start your tour at a different time, or run off the beaten path, just let us know and we can set up a customized tour for you!</p>
+					<p><b class="text-pink">Customized tours from 30 euro.</b></p>
+				{elseif $rand eq 2}
+					<p><a href="{$this->url([action=>'customized-tour'], null, true)}" class="btn btn-info btn-large btn-block">A tour just for you?</a></p>
+					<p>Fancy a beer, a market hall or a metro station along the way? Tell us what you would like to see and we'll create a tour for you!</p>
+					<p><b class="text-pink">Customized tours from 30 euro.</b></p>
 				{else}
-<p>								<a href="{$this->url([action=>'customized-tour'], null, true)}" class="btn btn-info btn-large btn-block">A tour just for you?</a>
-								</p>								<p>Fancy a beer, a market hall or a metro station along the way? Tell us what you would like to see and we'll create a tour for you!
-				</p>
-				
-
+					<p><a href="{$this->url([action=>'customized-tour'], null, true)}" class="btn btn-info btn-large btn-block">City of Lights Tour</a></p>
+					<p>Try any of our routes at 21PM and check out the city's charming lights after sunset!</p>
 				{/if}
-				<p><b class="text-pink">Customized tours from 30 euro.</b></p>
 			</div>
-			<div class="well">
-				<ul class="thumbnails"  id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery">
-					{foreach $tour->photos as $photo}
-					<li class="span1"><a data-gallery="gallery" href="{$photo->file->filename}" class="thumbnail"><img src="{$photo->file->filename}"></a></li>
-					{/foreach}
-				</ul>
-			</div>
-
 
 
 <!-- 			<div class="well">
@@ -63,11 +57,34 @@
 		<div class="span9">
 			<div class="well">
 				
-									<h2>{$selectedTour->title}</h2>
-				{if $isAdmin}<a href="{$this->url([action=>'edit-tour', id => $selectedTour->id])}" class="">EDIT</a>{/if}
+				<div class="row-fluid">
+					<div class="span6">
+						<h2>{$selectedTour->title}</h2>
+						
+						{if $isAdmin}<a href="{$this->url([action=>'edit-tour', id => $selectedTour->id])}" class="">EDIT</a>{/if}
 
-				<p>Approx. {$selectedTour->distance} km</p>
-				<p>Meeting point: {$selectedTour->stops.0}</p>
+						<p><b>Distance:</b> Approx. {$selectedTour->distance} km</p>
+						<p><b>Meeting point:</b> {$selectedTour->stops.0}</p>
+						<ul>
+							<li>Price for 1 person: <b>{$tour->prices.0} EUR</b></li>
+							<li>Price for 2-3 persons: <b>{$tour->prices.1} EUR</b></li>
+							<li>Price for 4-5 persons: <b>{$tour->prices.2} EUR</b> </li>
+						</ul>
+						<p>
+							<a href="{$this->url()}#timetable" class="btn btn-mini btn-success"><b>Click here for booking</b></a>
+						</p>
+
+					</div>
+					<div class="span6">
+						<ul class="thumbnails"  id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery">
+							{foreach $selectedTour->photos as $photo}
+							<li class="span4">
+								<a data-gallery="gallery" href="{$photo->file->filename}" class="thumbnail"><img src="{$photo->file->filename}"></a></li>
+							{/foreach}
+						</ul>
+					</div>
+				</div>
+				
 				<hr>
 				<div class="row-fluid">
 									<div class="span8">
@@ -77,8 +94,11 @@
 				
 				<div id="more" class="collapse in">
 					<p><strong>{$selectedTour->brief}</strong></p>
-					<p>{$selectedTour->description|nl2br}</p>
+					<p>{$selectedTour->description}</p>
 				</div>
+				<hr>
+
+
 				<p class="fb-like" data-send="false"  data-show-faces="false" data-font="lucida grande"></p>
 
 				</div>
@@ -103,113 +123,12 @@
 		<div class="span12">
 			<div class="well">
 				<h2>Timetable</h2>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi, autem, nihil eos consectetur qui atque placeat nesciunt accusantium? Vero eius voluptas facilis molestias totam distinctio officia voluptatibus eos vitae consectetur!</p>
-				<table class="table table-bordered calendar" >
-					<tr>
-						<th></th>
-						<th>7:00</th>
-						<th>8:00</th>
-						<th>9:00</th>
-						<th>10:00</th>
-						<th>11:00</th>
-						<th>12:00</th>
-						<th>13:00</th>
-						<th>14:00</th>
-						<th>15:00</th>
-						<th>16:00</th>
-						<th>17:00</th>
-						<th>18:00</th>
-						<th>19:00</th>
-						<th>20:00</th>
-						<th>21:00</th>
-					</tr>
+				<p>If you are a group of more than 5 runners, send us a mail to <a href="hello@runningtoursbudapest.com">hello@runningtoursbudapest.com</a> and we can set up a personalized group tour for you!</p>
+				<p>Choose the date and time then click on the appropriate box for booking!</p>
+				<div id="timetable">
+				</div>
 
-					<tr>
-						<th>13. May</th>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td colspan="3"><a href="#" data-toggle="tooltip" title="1 person"><b>Riverbank Tour</b></a></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
 
-					<tr>
-						<th>14. May</th>
-						<td colspan="2"><a href="#" data-toggle="tooltip" title="5 persons"><b>Heartbeat tour</b></a></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td colspan="3"><a href="#" data-toggle="tooltip" title="1 person"><b>City of Lights Tour</b></a></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<th>15. May</th>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td colspan="2"><a href="#" data-toggle="tooltip" title="3 persons"><b>Heartbeat tour</b></a></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-										<tr>
-						<th>16. May</th>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td colspan="2"><a href="#" data-toggle="tooltip" title="6 persons"><b>Heartbeat tour</b></a></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-										<tr>
-						<th>17. May</th>
-						<td></td>
-						<td colspan="2"><a href="#" data-toggle="tooltip" title="4 persons"><b>Heartbeat tour</b></a></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-									</table>
-
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam, laudantium, eaque est modi quas sapiente ipsum quo. Totam, illum, sapiente sint voluptates fuga sequi nemo vitae laudantium dolore expedita distinctio!</p>
 			</div>
 
 		</div>
