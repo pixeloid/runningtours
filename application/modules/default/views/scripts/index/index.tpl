@@ -47,18 +47,20 @@
  
  
 
-{if $lastminute}
 
 <div class="lastMinute">
 	<div class="container">
 		<div class="row">
+			{if $lastminute}
+
 			<div class="span4">
 				<h3>Last minute!</h3>
 
 				<p><b>{$lastminute->personsNeeded} place{if $lastminute->personsNeeded gt 1}s{/if}</b> left for the {$lastminute->tour->title} on <b>{$lastminute->datefrom->format('d-M-Y')}</b> at {$lastminute->datefrom->format('H:i')} only for {$lastminute->price} EUR/person!</p>
 
 				<a href="{$this->url([action => 'tours', id => $lastminute->tour->id])}" class="btn">Book Now!</a>
-			</div>
+			</div>{/if}
+
 			<div class="span4">
 				<h3>Our partners!</h3>
 				<div class="ta">							
@@ -69,10 +71,12 @@
 					</div>
 					<script src="http://www.jscache.com/wejs?wtype=linkingWidgetRedesign&amp;uniq=960&amp;locationId=4048276&amp;lang=en_UK&amp;border=true"></script>
 				</div>				
-				<div class="gort">
+				<div class="gort clearfix">
 					<a href="http://www.gorunningtours.com" target="_blank"><img src="i/gort_logo_premiumpartner_180x62.png" ></a>
-				
 				</div>
+
+
+				<a href="http://www.maratonman.hu" ><img src="uploads/NR_banner_460x60.gif" class="img-responsive" style="margin-top: 10px;"alt=""></a>
 
 			</div>
 			<div class="span4">
@@ -86,7 +90,6 @@
 	</div>
 </div>
 
-{/if}
 
 
 <div class="toursSlider">

@@ -101,7 +101,7 @@ class IndexController extends Zend_Controller_Action
 		$form = new App_Form_Booking(array(), $selectedTour);
 		$form->persons->setAttrib('data-url', $this->view->url(array('action' => 'get-price'), null, false));
 
-		
+		$hasTourOnDay = $this->hasTourOnDay(new DateTime($date));
 
 		$form->addClass('ajax');
 		$form->setDefaults(array('date' => $date));
@@ -109,6 +109,9 @@ class IndexController extends Zend_Controller_Action
 		$tourEl = $form->getElement('tour');
 
 		foreach ($this->em->getRepository('Entity\Tour')->findAll() as $tour) {
+			if ($hasTourOnDay && $tour->onlyinaday) {
+				continue;
+			}
 			$tourEl->addMultiOption( $tour->id, $tour->title);
 		}
 
@@ -198,12 +201,18 @@ class IndexController extends Zend_Controller_Action
 		
 		$form->setAction($this->view->url());
 		$form->setDescription(null);
-		$form->removeElement('accept');
+		//$form->removeElement('accept');
 		$form->getElement('message')->setLabel('Your plan:');
 		$form->getElement('submit')->setLabel('Send!');
 		$form->getElement('persons')->setLabel('Number of persons:');
 		
-		
+		$tourEl = $form->getElement('tour');
+
+		foreach ($this->em->getRepository('Entity\Tour')->findAll() as $tour) {
+			$tourEl->addMultiOption( $tour->id, $tour->title);
+		}
+
+
 		$form->persons->setMultiOptions(array());
 		
 		for ($i=1; $i <= 5; $i++) { 
@@ -428,6 +437,27 @@ class IndexController extends Zend_Controller_Action
 	}
 	
 	
+	public function hasTourOnDay($date)
+	{
+		$query = $this->em->createQuery('SELECT r FROM Entity\Reservation r  WHERE r.datefrom > :date')
+		
+		->setParameters(array(
+			'date' => $date->format('Y-m-d') . ' 00:00:00'
+			)
+		);
+
+		foreach($query->getResult() as $res){
+
+			if ($res->datefrom->format('Y-m-d') == $date->format('Y-m-d')) {
+				return true;
+			}
+		}
+		
+		return false;
+		
+	}
+	
+	
 	
 	private function getTimetable()
 	{
@@ -437,7 +467,7 @@ class IndexController extends Zend_Controller_Action
 		$reservations = array();
 
 		$now = new DateTime(date('Y-m-d'));
-		$now->add(new DateInterval('P1D'));
+		$now->add(new DateInterval('P2D'));
 		$now->add(new DateInterval('PT7H'));
 
 		$result = array();

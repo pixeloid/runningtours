@@ -6259,7 +6259,6 @@ html {
 }
 body {
   background: url(../i/bg_body.png) repeat-x fixed;
-  padding-top: 120px;
   margin: 0 0 180px;
   /* bottom = footer height */
 }
@@ -6317,25 +6316,28 @@ h5 {
 .map img {
   max-width: inherit;
 }
-.navbar-fixed-top {
+header {
   margin-top: 30px;
-}
-.navbar-fixed-top .container {
+  margin-bottom: 20px;
   position: relative;
 }
-.navbar-fixed-top h1 {
+header .container {
+  position: relative;
+}
+header h1 {
   width: 155px;
   height: 40px;
   float: left;
 }
-.navbar-fixed-top h2 {
+header h2 {
   position: absolute;
   font: normal 14px/48px 'HelveticaNeueLT Pro', Helvetica, Arial, sans-serif;
   right: -20px;
   top: 50px;
   text-transform: none;
+  display: none;
 }
-.navbar-fixed-top h1 a.brand {
+header h1 a.brand {
   display: block;
   text-indent: -10000px;
   width: 165px;
@@ -6363,22 +6365,22 @@ h5 {
   float: left;
   margin-right: 10px;
 }
-.navbar-fixed-top .navbar {
+header .navbar {
   -webkit-box-shadow: 0 20px 20px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0 20px 20px rgba(0, 0, 0, 0.2);
   box-shadow: 0 20px 20px rgba(0, 0, 0, 0.2);
 }
-.navbar-fixed-top .navbar .navbar-inner {
+header .navbar .navbar-inner {
   background: #dc0384 !important;
 }
-.navbar-fixed-top .navbar .navbar-inner div.nav-collapse ul.nav li a {
+header .navbar .navbar-inner div.nav-collapse ul.nav li a {
   text-transform: uppercase;
   color: #fff200;
   font: normal 20px 'Arista 2.0';
   text-shadow: none;
   padding: 20px 14px;
 }
-.navbar-fixed-top .navbar .navbar-inner div.nav-collapse ul.nav li.active a {
+header .navbar .navbar-inner div.nav-collapse ul.nav li.active a {
   color: #000000;
 }
 .mainSlider {
@@ -6728,7 +6730,7 @@ h5 {
 }
 @media only screen and (max-width: 767px) {
   body {
-    padding-top: 0px;
+    padding-top: 60px;
     margin-bottom: 0;
   }
   h1 {
@@ -6737,13 +6739,21 @@ h5 {
   h2 {
     display: none;
   }
-  .navbar-fixed-top .navbar .navbar-inner div.nav-collapse ul.nav {
+  header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+  }
+  header .navbar .navbar-inner div.nav-collapse ul.nav {
     padding-top: 30px;
   }
-  .navbar-fixed-top .navbar .navbar-inner div.nav-collapse ul.nav li a {
+  header .navbar .navbar-inner div.nav-collapse ul.nav li a {
     padding: 10px 20px;
     text-align: center;
     border-bottom: #ffdff2;
+  }
+  header h1 a.brand {
+    margin-top: -33px !important;
   }
   .mainSlider {
     height: auto;

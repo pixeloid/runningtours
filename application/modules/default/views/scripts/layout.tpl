@@ -17,7 +17,7 @@
 	<meta property="og:title" content="{strip_tags($this->headTitle())}"/>
     <meta property="og:description"          content="Who needs a beastly tour bus that can barely fit through narrow streets when we have our legs for transportation? And you do not even have to mind CO emission either! So put on your sneakers and let’s go for a run!"> 
 	
-	<link rel="stylesheet" href="css/styles.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	<link rel="stylesheet" href="css/styles.css?v123" type="text/css" media="screen" title="no title" charset="utf-8">
 	<link rel="stylesheet" href="bootstrap-modal-master/css/bootstrap-modal.css" type="text/css" media="screen" title="no title" charset="utf-8">
 	<link rel="stylesheet" href="Bootstrap-Image-Gallery-master/css/bootstrap-image-gallery.min.css" type="text/css" media="screen" title="no title" charset="utf-8">
 
@@ -61,12 +61,10 @@
 	<script type="text/javascript" src="plupload/js/plupload.html4.js"></script>
 	<script type="text/javascript" src="plupload/js/plupload.html5.js"></script>
 	<script src="tinymce/tiny_mce.js" type="text/javascript" charset="utf-8"></script>
-	<script src="bootstrap-calendar-master/components/underscore/underscore-min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="bootstrap-calendar-master/js/calendar.js" type="text/javascript" charset="utf-8"></script>
 
 	
 
-	<script src="js/site.js"></script>
+	<script src="js/site.js?v123"></script>
 	
 </head>
 
@@ -97,11 +95,11 @@
 	</script>
 	{/literal}
     
-	<div class="navbar-fixed-top">	
+	<header>	
 		
 			
 
-		<div class="navbar ">
+		<div class="navbar navbar-static-top">
 			<div class="navbar-inner">
 				<div class="container">		
 						
@@ -119,7 +117,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</header>
 	
 	
 	{$this->layout()->content}

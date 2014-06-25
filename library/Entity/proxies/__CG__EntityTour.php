@@ -42,6 +42,12 @@ class Tour extends \Entity\Tour implements \Doctrine\ORM\Proxy\Proxy
     }
 
     
+    public function getPriceFor($num)
+    {
+        $this->__load();
+        return parent::getPriceFor($num);
+    }
+
     public function getStops()
     {
         $this->__load();
@@ -93,7 +99,7 @@ class Tour extends \Entity\Tour implements \Doctrine\ORM\Proxy\Proxy
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'title', 'brief', 'description', 'stops', 'day', 'distance', 'hour', 'id', 'created', 'updated', 'reservations', 'photos');
+        return array('__isInitialized__', 'title', 'brief', 'description', 'stops', 'distance', 'onlyinaday', 'hours', 'prices', 'id', 'created', 'updated', 'reservations', 'photos');
     }
 
     public function __clone()

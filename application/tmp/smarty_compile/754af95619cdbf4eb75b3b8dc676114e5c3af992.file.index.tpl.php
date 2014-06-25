@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.8, created on 2014-06-04 13:43:35
+<?php /* Smarty version Smarty-3.1.8, created on 2014-06-25 11:42:03
          compiled from "/Users/pixeloid/Sites/runningtours/application/modules/default/views/scripts/index/index.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:4914768705120f07c80f529-39968482%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '754af95619cdbf4eb75b3b8dc676114e5c3af992' => 
     array (
       0 => '/Users/pixeloid/Sites/runningtours/application/modules/default/views/scripts/index/index.tpl',
-      1 => 1401830264,
+      1 => 1403689323,
       2 => 'file',
     ),
   ),
@@ -76,11 +76,12 @@ $_valid = $_smarty_tpl->decodeProperties(array (
  
  
 
-<?php if ($_smarty_tpl->tpl_vars['lastminute']->value){?>
 
 <div class="lastMinute">
 	<div class="container">
 		<div class="row">
+			<?php if ($_smarty_tpl->tpl_vars['lastminute']->value){?>
+
 			<div class="span4">
 				<h3>Last minute!</h3>
 
@@ -93,7 +94,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 
 				<a href="<?php echo $_smarty_tpl->tpl_vars['this']->value->url(array('action'=>'tours','id'=>$_smarty_tpl->tpl_vars['lastminute']->value->tour->id));?>
 " class="btn">Book Now!</a>
-			</div>
+			</div><?php }?>
+
 			<div class="span4">
 				<h3>Our partners!</h3>
 				<div class="ta">							
@@ -104,10 +106,12 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 					</div>
 					<script src="http://www.jscache.com/wejs?wtype=linkingWidgetRedesign&amp;uniq=960&amp;locationId=4048276&amp;lang=en_UK&amp;border=true"></script>
 				</div>				
-				<div class="gort">
+				<div class="gort clearfix">
 					<a href="http://www.gorunningtours.com" target="_blank"><img src="i/gort_logo_premiumpartner_180x62.png" ></a>
-				
 				</div>
+
+
+				<a href="http://www.maratonman.hu" ><img src="uploads/NR_banner_460x60.gif" class="img-responsive" style="margin-top: 10px;"alt=""></a>
 
 			</div>
 			<div class="span4">
@@ -123,7 +127,6 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 	</div>
 </div>
 
-<?php }?>
 
 
 <div class="toursSlider">

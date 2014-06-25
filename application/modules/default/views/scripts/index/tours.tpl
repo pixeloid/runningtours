@@ -72,7 +72,7 @@
 							<li>Price for 4-5 persons: <b>{$selectedTour->prices.2} EUR</b> </li>
 						</ul>
 						<p>
-							<a href="{$this->url()}#timetable" class="btn btn-mini btn-success"><b>Click here for booking</b></a>
+							<a href="{$this->url()}#tt" class="btn btn-mini btn-success"><b>Click here for booking</b></a>
 						</p>
 
 					</div>
@@ -120,7 +120,7 @@
 		</div>
 		
 	</div>
-	<div class="row">
+	<div class="row" id="tt">
 		<div class="span12">
 			<div class="well">
 				<h2>Timetable</h2>

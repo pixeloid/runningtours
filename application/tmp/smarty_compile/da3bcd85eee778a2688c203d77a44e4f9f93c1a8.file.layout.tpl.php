@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.8, created on 2014-05-19 16:54:44
+<?php /* Smarty version Smarty-3.1.8, created on 2014-06-25 11:20:54
          compiled from "/Users/pixeloid/Sites/runningtours/application/modules/default/views/scripts/layout.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:15864058895120ee2e62b077-68213577%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'da3bcd85eee778a2688c203d77a44e4f9f93c1a8' => 
     array (
       0 => '/Users/pixeloid/Sites/runningtours/application/modules/default/views/scripts/layout.tpl',
-      1 => 1400222142,
+      1 => 1402588150,
       2 => 'file',
     ),
   ),
@@ -48,7 +48,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 "/>
     <meta property="og:description"          content="Who needs a beastly tour bus that can barely fit through narrow streets when we have our legs for transportation? And you do not even have to mind CO emission either! So put on your sneakers and let’s go for a run!"> 
 	
-	<link rel="stylesheet" href="css/styles.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	<link rel="stylesheet" href="css/styles.css?v123" type="text/css" media="screen" title="no title" charset="utf-8">
 	<link rel="stylesheet" href="bootstrap-modal-master/css/bootstrap-modal.css" type="text/css" media="screen" title="no title" charset="utf-8">
 	<link rel="stylesheet" href="Bootstrap-Image-Gallery-master/css/bootstrap-image-gallery.min.css" type="text/css" media="screen" title="no title" charset="utf-8">
 
@@ -92,12 +92,10 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 	<script type="text/javascript" src="plupload/js/plupload.html4.js"></script>
 	<script type="text/javascript" src="plupload/js/plupload.html5.js"></script>
 	<script src="tinymce/tiny_mce.js" type="text/javascript" charset="utf-8"></script>
-	<script src="bootstrap-calendar-master/components/underscore/underscore-min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="bootstrap-calendar-master/js/calendar.js" type="text/javascript" charset="utf-8"></script>
 
 	
 
-	<script src="js/site.js"></script>
+	<script src="js/site.js?v123"></script>
 	
 </head>
 
@@ -129,11 +127,11 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 	</script>
 	
     
-	<div class="navbar-fixed-top">	
+	<header>	
 		
 			
 
-		<div class="navbar ">
+		<div class="navbar navbar-static-top">
 			<div class="navbar-inner">
 				<div class="container">		
 						
@@ -153,7 +151,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 				</div>
 			</div>
 		</div>
-	</div>
+	</header>
 	
 	
 	<?php echo $_smarty_tpl->tpl_vars['this']->value->layout()->content;?>
