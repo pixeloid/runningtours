@@ -73,6 +73,19 @@ class Tour extends Base
         $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
     }
 	
+	public function getPriceFor($num)
+	{
+		$prices = array(
+			$this->prices[0],
+			$this->prices[1],
+			$this->prices[1],
+			$this->prices[2],
+			$this->prices[2]
+		);
+
+		return $prices[$num - 1];
+
+	}
 	
 	public function getStops()
 	{

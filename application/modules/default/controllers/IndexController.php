@@ -43,13 +43,6 @@ class IndexController extends Zend_Controller_Action
 
 		$this->maxPerTour = $this->config->app->maxpersons;
 		
-		$this->prices = array(
-			1 	=>	25,
-			2	=>	20,
-			3	=>	20,
-			4	=>	15,
-			5	=>	15,
-		);
 		
 		
 		if($activePage = $this->view->mainNav->findOneBy('active', true))
@@ -80,7 +73,8 @@ class IndexController extends Zend_Controller_Action
 		{
 			$lastminute = $result[0];
 			$lastminute->personsNeeded = $this->maxPerTour - $result['s'];
-			$lastminute->price = $this->getPrice($lastminute->personsNeeded, 1);
+
+			$lastminute->price = $lastminute->tour->getPriceFor($result['s'] + 1);
 			
 		}
 
@@ -190,6 +184,7 @@ class IndexController extends Zend_Controller_Action
 		
 		$form = new App_Form_Booking();
 		$complete = $this->getRequest()->getParam('complete', false);
+		$night = $this->getRequest()->getParam('night', false);
 		
 
 		if (isset($this->fbUserInfo)) {
@@ -231,6 +226,7 @@ class IndexController extends Zend_Controller_Action
 				$booking->phone = $formData['phone'];
 				$booking->persons = $formData['persons'];
 				$booking->datefrom = date('Y-m-d H:i:s');
+				$booking->dateto = date('Y-m-d H:i:s');
 				$booking->message = $formData['message'];
 				
                 $this->em->persist($booking);
@@ -244,6 +240,7 @@ class IndexController extends Zend_Controller_Action
         }
 		$this->view->headTitle()->prepend('Customize your tour!');
 		$this->view->complete = $complete;		
+		$this->view->night = $night;		
 		$this->view->form = $form;		
 		
 	}
@@ -493,13 +490,6 @@ class IndexController extends Zend_Controller_Action
 		$tour = $this->em->getRepository('Entity\Tour')->findOneById($id);
 		$freePlaces = $this->getRouteFreePlaces($tour->id, $date);
 
-		$prices = array(
-			$tour->prices[0],
-			$tour->prices[1],
-			$tour->prices[1],
-			$tour->prices[2],
-			$tour->prices[2]
-		);
 
 		$label= '<label class="control-label"> Number of persons:<br /><a href="#" class="pop" data-toggle="popover" data-trigger="hover" data-html="true" data-placement="right" data-content="We are pleased to offer discounts for group bookings.
 																<ul><li>'.$tour->prices[0].' euro/1 person</li>
@@ -509,13 +499,13 @@ class IndexController extends Zend_Controller_Action
 
 
 		$this->_helper->json(array(
-			'price' => $prices[$this->maxPerTour - $freePlaces + $persons - 1],
+			'price' => $tour->getPriceFor($this->maxPerTour - $freePlaces + $persons),
 			'label' => $label
 		));
 		
 	}
 
-	public function getPrice($personsLeft, $persons)
+	public function getPrice($tour, $personsLeft, $persons)
 	{
 
 		

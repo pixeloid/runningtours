@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.8, created on 2014-06-03 23:11:25
+<?php /* Smarty version Smarty-3.1.8, created on 2014-06-04 14:04:17
          compiled from "/Users/pixeloid/Sites/runningtours/application/modules/default/views/scripts/index/book-now.ajax.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:625434924534ec698efa375-07231960%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'b19dca54632a284a483897f1b3e82131f57e1c54' => 
     array (
       0 => '/Users/pixeloid/Sites/runningtours/application/modules/default/views/scripts/index/book-now.ajax.tpl',
-      1 => 1401829882,
+      1 => 1401830869,
       2 => 'file',
     ),
   ),
@@ -34,9 +34,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 </div>
 <div class="modal-body">
 	<?php if (!isset($_smarty_tpl->tpl_vars['fbUserInfo']->value)){?>
-    	<fb:login-button scope="email">Fill the form from your Facebook info!</fb:login-button>
+    	<fb:login-button scope="email">Fill the form with your Facebook info!</fb:login-button>
 	<?php }?>
-	
 	<?php echo $_smarty_tpl->tpl_vars['form']->value;?>
 
 </div>

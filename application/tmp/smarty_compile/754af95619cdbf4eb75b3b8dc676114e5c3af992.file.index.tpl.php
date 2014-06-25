@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.8, created on 2014-06-03 21:40:31
+<?php /* Smarty version Smarty-3.1.8, created on 2014-06-04 13:43:35
          compiled from "/Users/pixeloid/Sites/runningtours/application/modules/default/views/scripts/index/index.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:4914768705120f07c80f529-39968482%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '754af95619cdbf4eb75b3b8dc676114e5c3af992' => 
     array (
       0 => '/Users/pixeloid/Sites/runningtours/application/modules/default/views/scripts/index/index.tpl',
-      1 => 1401823755,
+      1 => 1401830264,
       2 => 'file',
     ),
   ),
@@ -95,7 +95,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 " class="btn">Book Now!</a>
 			</div>
 			<div class="span4">
-				<h3>Our parners!</h3>
+				<h3>Our partners!</h3>
 				<div class="ta">							
 					<div id="TA_linkingWidgetRedesign960" class="TA_linkingWidgetRedesign">
 						<ul id="4218O6N" class="TA_links xB29w6xvxe">

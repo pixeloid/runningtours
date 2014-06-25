@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.8, created on 2014-06-03 21:29:21
+<?php /* Smarty version Smarty-3.1.8, created on 2014-06-11 16:08:52
          compiled from "/Users/pixeloid/Sites/runningtours/application/modules/default/views/scripts/index/tours.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:16402573145120f09a3845b5-77715844%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'ae9f5e98486b5e3539797d8514be3ad1b5eeb87f' => 
     array (
       0 => '/Users/pixeloid/Sites/runningtours/application/modules/default/views/scripts/index/tours.tpl',
-      1 => 1401323610,
+      1 => 1402495731,
       2 => 'file',
     ),
   ),
@@ -63,7 +63,7 @@ $_smarty_tpl->tpl_vars['tour']->_loop = true;
 			
 
 			<div class="well">
-				<?php $_smarty_tpl->tpl_vars['rand'] = new Smarty_variable(rand(1,3), null, 0);?>
+				<?php $_smarty_tpl->tpl_vars['rand'] = new Smarty_variable(rand(1,2), null, 0);?>
 				<?php if ($_smarty_tpl->tpl_vars['rand']->value==1){?>
 					<p><a href="<?php echo $_smarty_tpl->tpl_vars['this']->value->url(array('action'=>'customized-tour'),null,true);?>
 " class="btn btn-info btn-large btn-block">Other time, other route?</a></p>
@@ -74,11 +74,12 @@ $_smarty_tpl->tpl_vars['tour']->_loop = true;
 " class="btn btn-info btn-large btn-block">A tour just for you?</a></p>
 					<p>Fancy a beer, a market hall or a metro station along the way? Tell us what you would like to see and we'll create a tour for you!</p>
 					<p><b class="text-pink">Customized tours from 30 euro.</b></p>
-				<?php }else{ ?>
-					<p><a href="<?php echo $_smarty_tpl->tpl_vars['this']->value->url(array('action'=>'customized-tour'),null,true);?>
-" class="btn btn-info btn-large btn-block">City of Lights Tour</a></p>
-					<p>Try any of our routes at 21PM and check out the city's charming lights after sunset!</p>
 				<?php }?>
+			</div>
+			<div class="well">
+					<p>Try any of our routes at 21PM and check out the city's charming lights after sunset!</p>
+				<p><a href="<?php echo $_smarty_tpl->tpl_vars['this']->value->url(array('action'=>'customized-tour','night'=>true),null,true);?>
+" class="btn btn-info btn-large btn-block">City of Lights Tour</a></p>
 			</div>
 
 
@@ -120,11 +121,11 @@ $_smarty_tpl->tpl_vars['date']->_loop = true;
 						<p><b>Meeting point:</b> <?php echo $_smarty_tpl->tpl_vars['selectedTour']->value->stops[0];?>
 </p>
 						<ul>
-							<li>Price for 1 person: <b><?php echo $_smarty_tpl->tpl_vars['tour']->value->prices[0];?>
+							<li>Price for 1 person: <b><?php echo $_smarty_tpl->tpl_vars['selectedTour']->value->prices[0];?>
  EUR</b></li>
-							<li>Price for 2-3 persons: <b><?php echo $_smarty_tpl->tpl_vars['tour']->value->prices[1];?>
+							<li>Price for 2-3 persons: <b><?php echo $_smarty_tpl->tpl_vars['selectedTour']->value->prices[1];?>
  EUR</b></li>
-							<li>Price for 4-5 persons: <b><?php echo $_smarty_tpl->tpl_vars['tour']->value->prices[2];?>
+							<li>Price for 4-5 persons: <b><?php echo $_smarty_tpl->tpl_vars['selectedTour']->value->prices[2];?>
  EUR</b> </li>
 						</ul>
 						<p>
@@ -194,8 +195,8 @@ $_smarty_tpl->tpl_vars['stop']->_loop = true;
 		<div class="span12">
 			<div class="well">
 				<h2>Timetable</h2>
+				<p><big><b>Choose the date and time then click on the appropriate box for booking!</b></big></p>
 				<p>If you are a group of more than 5 runners, send us a mail to <a href="hello@runningtoursbudapest.com">hello@runningtoursbudapest.com</a> and we can set up a personalized group tour for you!</p>
-				<p>Choose the date and time then click on the appropriate box for booking!</p>
 				<div id="timetable">
 				</div>
 

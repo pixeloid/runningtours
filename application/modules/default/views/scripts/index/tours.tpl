@@ -23,7 +23,7 @@
 			
 
 			<div class="well">
-				{$rand = rand(1,3)}
+				{$rand = rand(1,2)}
 				{if $rand eq 1}
 					<p><a href="{$this->url([action=>'customized-tour'], null, true)}" class="btn btn-info btn-large btn-block">Other time, other route?</a></p>
 					<p>If you wish to start your tour at a different time, or run off the beaten path, just let us know and we can set up a customized tour for you!</p>
@@ -32,10 +32,11 @@
 					<p><a href="{$this->url([action=>'customized-tour'], null, true)}" class="btn btn-info btn-large btn-block">A tour just for you?</a></p>
 					<p>Fancy a beer, a market hall or a metro station along the way? Tell us what you would like to see and we'll create a tour for you!</p>
 					<p><b class="text-pink">Customized tours from 30 euro.</b></p>
-				{else}
-					<p><a href="{$this->url([action=>'customized-tour'], null, true)}" class="btn btn-info btn-large btn-block">City of Lights Tour</a></p>
-					<p>Try any of our routes at 21PM and check out the city's charming lights after sunset!</p>
 				{/if}
+			</div>
+			<div class="well">
+					<p>Try any of our routes at 21PM and check out the city's charming lights after sunset!</p>
+				<p><a href="{$this->url([action=>'customized-tour', night=>true], null, true)}" class="btn btn-info btn-large btn-block">City of Lights Tour</a></p>
 			</div>
 
 
@@ -66,9 +67,9 @@
 						<p><b>Distance:</b> Approx. {$selectedTour->distance} km</p>
 						<p><b>Meeting point:</b> {$selectedTour->stops.0}</p>
 						<ul>
-							<li>Price for 1 person: <b>{$tour->prices.0} EUR</b></li>
-							<li>Price for 2-3 persons: <b>{$tour->prices.1} EUR</b></li>
-							<li>Price for 4-5 persons: <b>{$tour->prices.2} EUR</b> </li>
+							<li>Price for 1 person: <b>{$selectedTour->prices.0} EUR</b></li>
+							<li>Price for 2-3 persons: <b>{$selectedTour->prices.1} EUR</b></li>
+							<li>Price for 4-5 persons: <b>{$selectedTour->prices.2} EUR</b> </li>
 						</ul>
 						<p>
 							<a href="{$this->url()}#timetable" class="btn btn-mini btn-success"><b>Click here for booking</b></a>
@@ -123,8 +124,8 @@
 		<div class="span12">
 			<div class="well">
 				<h2>Timetable</h2>
+				<p><big><b>Choose the date and time then click on the appropriate box for booking!</b></big></p>
 				<p>If you are a group of more than 5 runners, send us a mail to <a href="hello@runningtoursbudapest.com">hello@runningtoursbudapest.com</a> and we can set up a personalized group tour for you!</p>
-				<p>Choose the date and time then click on the appropriate box for booking!</p>
 				<div id="timetable">
 				</div>
 
